@@ -23,4 +23,7 @@ export class PageHeaderComponent implements OnInit {
     this.loginClicked = event
   }
 
+  validUser(valid: boolean) {
+    this.loggedIn = valid
+  }
 }

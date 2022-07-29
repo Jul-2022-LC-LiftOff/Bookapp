@@ -10,23 +10,55 @@
       ></button>
     </header>
     <section class="modal-card-body">
-      <form action="submit" method="get" id="login">
+      <form
+        #userLogin="ngForm"
+        action="submit"
+        (ngSubmit)="onClickSubmit(userLogin.value)"
+      >
         <div class="field">
-          <label class="label">Username</label>
+          <label class="label"
+            >Username&nbsp;&nbsp;&nbsp;<span
+              *ngIf="invalidUsername"
+              class="invalid"
+            >
+              Invalid Username
+            </span></label
+          >
           <div class="control">
-            <input class="input" type="text" placeholder="enter username" />
+            <input
+              class="input"
+              type="text"
+              placeholder="enter username"
+              name="username"
+              ngModel
+            />
           </div>
         </div>
 
         <div class="field">
-          <label class="label">Password</label>
+          <label class="label"
+            >Password&nbsp;&nbsp;&nbsp;<span
+              *ngIf="invalidPassword"
+              class="invalid"
+            >
+              Invalid Password
+            </span></label
+          >
           <div class="control">
-            <input class="input" type="password" placeholder="enter password" />
+            <input
+              class="input"
+              type="password"
+              placeholder="enter password"
+              name="password"
+              ngModel
+            />
           </div>
         </div>
         <div class="field has-text-centered">
           <div class="control">
-            <button class="button is-rounded" type="submit">submit</button>
+            <button class="button is-rounded" type="submit" value="submit">
+              submit
+            </button>
             <button class="button is-rounded" type="external login">
               Log in with Google
             </button>

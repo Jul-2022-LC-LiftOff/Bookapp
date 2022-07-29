@@ -13,8 +13,10 @@
       </div>
       <div id="navbarMenuHeroB" class="navbar-menu">
         <div class="navbar-end">
-          <a class="navbar-item" (click)="onLoginClicked()">Log In</a>
-          <a class="navbar-item">My books</a>
+          <a *ngIf="!loggedIn" class="navbar-item" (click)="onLoginClicked()"
+            >Log In</a
+          >
+          <a *ngIf="loggedIn" class="navbar-item">My books</a>
           <form class="navbar-item" method="get">
             <input type="text" placeholder="search" />
             <span class="navbar-item">
@@ -59,4 +61,5 @@
 <login-modal
   [loginClicked]="loginClicked"
   (closeModal)="closeModal($event)"
+  (loggedIn)="validUser($event)"
 ></login-modal>
