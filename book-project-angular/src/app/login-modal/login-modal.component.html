@@ -1,0 +1,38 @@
+<div *ngIf="loginClicked" class="modal is-active">
+  <div class="modal-background"></div>
+  <div class="modal-card">
+    <header class="modal-card-head" id="header">
+      <p class="modal-card-title has-text-centered" id="header-text">Login</p>
+      <button
+        class="delete"
+        aria-label="close"
+        (click)="onCloseModal()"
+      ></button>
+    </header>
+    <section class="modal-card-body">
+      <form action="submit" method="get" id="login">
+        <div class="field">
+          <label class="label">Username</label>
+          <div class="control">
+            <input class="input" type="text" placeholder="enter username" />
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="label">Password</label>
+          <div class="control">
+            <input class="input" type="password" placeholder="enter password" />
+          </div>
+        </div>
+        <div class="field has-text-centered">
+          <div class="control">
+            <button class="button is-rounded" type="submit">submit</button>
+            <button class="button is-rounded" type="external login">
+              Log in with Google
+            </button>
+          </div>
+        </div>
+      </form>
+    </section>
+  </div>
+</div>

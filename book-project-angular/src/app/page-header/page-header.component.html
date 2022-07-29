@@ -1,0 +1,62 @@
+<section class="hero is-small is-primary">
+  <div class="hero-head">
+    <nav class="navbar">
+      <div class="navbar-brand">
+        <a class="navbar-item">
+          <img src="" alt="Logo" />
+        </a>
+        <span class="navbar-burger" data-target="navbarMenuHeroB">
+          <span></span>
+          <span></span>
+          <span></span>
+        </span>
+      </div>
+      <div id="navbarMenuHeroB" class="navbar-menu">
+        <div class="navbar-end">
+          <a class="navbar-item" (click)="onLoginClicked()">Log In</a>
+          <a class="navbar-item">My books</a>
+          <form class="navbar-item" method="get">
+            <input type="text" placeholder="search" />
+            <span class="navbar-item">
+              <button class="button is-info is-rounded is-small" type="submit">
+                Search
+              </button>
+            </span>
+          </form>
+        </div>
+      </div>
+    </nav>
+  </div>
+  <div class="hero-body has-text-centered">
+    <div class="container">
+      <p class="title">Book App Title</p>
+      <p class="subtitle">subtitle an app for books</p>
+    </div>
+  </div>
+  <div class="hero-foot">
+    <div class="tabs is-boxed is-fullwidth">
+      <ul>
+        <li>
+          <a href="">New Titles</a>
+        </li>
+        <li>
+          <a href="">Most Popular</a>
+        </li>
+        <li>
+          <a href="">another link</a>
+        </li>
+        <li>
+          <a href="">another nother link</a>
+        </li>
+        <li>
+          <a href="">Link five</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<login-modal
+  [loginClicked]="loginClicked"
+  (closeModal)="closeModal($event)"
+></login-modal>
