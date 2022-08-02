@@ -1,0 +1,64 @@
+<section class="hero is-small is-primary">
+  <div class="hero-head">
+    <nav class="navbar">
+      <div class="navbar-brand">
+        <a class="navbar-item">
+          <img src="" alt="Logo" />
+        </a>
+        <span class="navbar-burger" data-target="navbarMenuHeroB">
+          <span></span>
+          <span></span>
+          <span></span>
+        </span>
+      </div>
+      <div id="navbarMenuHeroB" class="navbar-menu">
+        <div class="navbar-end">
+          <a *ngIf="!loggedIn" class="navbar-item" (click)="onLoginClicked()"
+            >Log In</a
+          >
+          <!-- <span class="navbar-item"><search-bar></search-bar></span> -->
+
+          <a *ngIf="loggedIn" class="navbar-item">My books</a>
+        </div>
+      </div>
+    </nav>
+  </div>
+  <div class="hero-body has-text-centered">
+    <div class="container">
+      <p class="title">Book App Title</p>
+      <p class="subtitle">subtitle an app for books</p>
+    </div>
+  </div>
+  <div class="hero-foot">
+    <div class="tabs is-boxed is-fullwidth">
+      <ul>
+        <li>
+          <span class="navbar-item"
+            ><search-bar (emitBooks)="emitSearchedBooks($event)"></search-bar
+          ></span>
+        </li>
+        <li>
+          <a href="">Most Popular</a>
+        </li>
+        <li>
+          <a href="">Most Popular</a>
+        </li>
+        <li>
+          <a href="">another link</a>
+        </li>
+        <li>
+          <a href="">another nother link</a>
+        </li>
+        <li>
+          <a href="">Link five</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<login-modal
+  [loginClicked]="loginClicked"
+  (closeModal)="closeModal($event)"
+  (loggedIn)="validUser($event)"
+></login-modal>
