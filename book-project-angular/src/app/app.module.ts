@@ -8,6 +8,7 @@ import { UserPageComponent } from './user-page/user-page.component';
 import { BookDisplayPageComponent } from './book-display-page/book-display-page.component';
 import { SearchBarComponent } from './search-bar/search-bar.component';
 import { SearchResultListComponent } from './search-result-list/search-result-list.component';
+import { SearchResultPageComponent } from './search-result-page/search-result-page.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { SearchResultListComponent } from './search-result-list/search-result-li
     UserPageComponent,
     BookDisplayPageComponent,
     SearchBarComponent,
-    SearchResultListComponent
+    SearchResultListComponent,
+    SearchResultPageComponent
   ],
   imports: [
     BrowserModule,

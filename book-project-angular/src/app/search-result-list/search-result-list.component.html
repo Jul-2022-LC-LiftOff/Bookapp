@@ -1,1 +1,40 @@
-<p>search-result-list works!</p>
+<div *ngFor="let book of books" class="card">
+  <header class="card-header">
+    <h1 class="title is-centered">{{ book.title }}</h1>
+  </header>
+  <div class="card-content">
+    <div class="content is-small has-text-left">
+      <div class="columns">
+        <div class="column is-one-third">
+          <img src="{{ book.imageLinks.thumbnail }}" alt="thumbnail" />
+        </div>
+        <div class="column is-one-third">
+          <p>
+            <b>Author: </b>
+            <span>{{ book.authors }}</span>
+          </p>
+          <p>
+            <b>Publisher: </b>
+            <span>{{ book.publisher }}</span>
+          </p>
+          <p>
+            <b>Published Date: </b>
+            <span>{{ book.publishedDate }}</span>
+          </p>
+          <!-- <p>
+      <b>Description: </b>
+      <span>{{ book.description }}</span>
+    </p> -->
+          <p>
+            <b>Average Rating: </b>
+            <span>{{ book.averageRating }}</span>
+          </p>
+          <p>
+            <b>Rating Count: </b>
+            <span>{{ book.ratingsCount }}</span>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

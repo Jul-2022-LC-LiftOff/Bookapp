@@ -1,1 +1,19 @@
-<p>search-bar works!</p>
+<form
+  #bookSearch="ngForm"
+  action="submit"
+  (ngSubmit)="getBook(bookSearch.value)"
+  class="field has-addons"
+>
+  <div class="control">
+    <button class="button is-info is-small" type="submit" value="submit">
+      Search
+    </button>
+  </div>
+  <input
+    class="input is-small"
+    type="text"
+    placeholder="Search"
+    name="searchTerm"
+    ngModel
+  />
+</form>

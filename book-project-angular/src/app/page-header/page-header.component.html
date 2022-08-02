@@ -16,15 +16,9 @@
           <a *ngIf="!loggedIn" class="navbar-item" (click)="onLoginClicked()"
             >Log In</a
           >
+          <!-- <span class="navbar-item"><search-bar></search-bar></span> -->
+
           <a *ngIf="loggedIn" class="navbar-item">My books</a>
-          <form class="navbar-item" method="get">
-            <input type="text" placeholder="search" />
-            <span class="navbar-item">
-              <button class="button is-info is-rounded is-small" type="submit">
-                Search
-              </button>
-            </span>
-          </form>
         </div>
       </div>
     </nav>
@@ -39,7 +33,12 @@
     <div class="tabs is-boxed is-fullwidth">
       <ul>
         <li>
-          <a href="">New Titles</a>
+          <span class="navbar-item"
+            ><search-bar (emitBooks)="emitSearchedBooks($event)"></search-bar
+          ></span>
+        </li>
+        <li>
+          <a href="">Most Popular</a>
         </li>
         <li>
           <a href="">Most Popular</a>

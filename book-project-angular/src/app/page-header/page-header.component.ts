@@ -1,5 +1,5 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Book } from '../data/book';
 @Component({
   selector: 'page-header',
   templateUrl: './page-header.component.html',
@@ -7,7 +7,8 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 })
 export class PageHeaderComponent implements OnInit {
 
-  // @Output() loginClicked = new EventEmitter<boolean>;
+  @Output() emitBooks = new EventEmitter<any>();
+  books: Array<Book>
   loginClicked: boolean;
   loggedIn: boolean;
   constructor() { }
@@ -25,5 +26,10 @@ export class PageHeaderComponent implements OnInit {
 
   validUser(valid: boolean) {
     this.loggedIn = valid
+  }
+
+  emitSearchedBooks(books: Array<any>) {
+    console.log(books)
+    this.emitBooks.emit(books)
   }
 }

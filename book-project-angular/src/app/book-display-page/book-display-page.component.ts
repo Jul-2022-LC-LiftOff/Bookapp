@@ -16,8 +16,8 @@ export class BookDisplayPageComponent implements OnInit {
     // this.getBook("harry+potter+and+the")
   }
 
-
   getBook(search) {
+    let booksArr: Book[]
     let searchTerm = search.searchTerm
     let key = "AIzaSyAukQn7svQJN1ZruG8UK26I-LKr3lcEbGk"
     fetch(`https://www.googleapis.com/books/v1/volumes?q=${searchTerm}&key=${key}`)
@@ -30,12 +30,10 @@ export class BookDisplayPageComponent implements OnInit {
             // console.log(data)
             this.books[i] = data
           }
-          // console.log(this.books)
         } else {
           console.log("Nothing to return.")
         }
       })
   }
-
 }
 
