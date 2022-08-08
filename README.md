@@ -27,3 +27,5 @@ Features:
 •	How to connect Angular front end to Java SpringBoot backend.
 
 	Project Tracker: https://trello.com/b/ucnHnySi/launch-code-team-alejandro
+
+Wireframes: https://www.figma.com/file/9QElnwmXqwwjX8detyZ3kZ/Will-Morris's-team-library
