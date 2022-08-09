@@ -9,8 +9,6 @@ import { BookDisplayPageComponent } from './book-display-page/book-display-page.
 import { SearchBarComponent } from './search-bar/search-bar.component';
 import { SearchResultListComponent } from './search-result-list/search-result-list.component';
 import { SearchResultPageComponent } from './search-result-page/search-result-page.component';
-import { TestComponent } from './test/test.component';
-import { BookReviewPageComponent } from './book-review-page/book-review-page.component';
 
 @NgModule({
   declarations: [
@@ -21,9 +19,7 @@ import { BookReviewPageComponent } from './book-review-page/book-review-page.com
     BookDisplayPageComponent,
     SearchBarComponent,
     SearchResultListComponent,
-    SearchResultPageComponent,
-    TestComponent,
-    BookReviewPageComponent
+    SearchResultPageComponent
   ],
   imports: [
     BrowserModule,
