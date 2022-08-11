@@ -35,7 +35,7 @@
     <div class="content is-small has-text-left">
       <div class="columns">
         <div class="column is-one-third">
-          <img src="{{ book.imageLinks.thumbnail }}" alt="thumbnail" />
+          <img routerLink="/book" src="{{ book.imageLinks.thumbnail }}" alt="thumbnail" />
         </div>
         <div class="column is-one-third">
           <p>
@@ -45,6 +45,7 @@
           <p>
             <b>Publisher: </b>
             <span>{{ book.publisher }}</span>
+            <span>test</span>
           </p>
           <p>
             <b>Published Date: </b>

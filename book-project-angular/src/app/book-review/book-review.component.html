@@ -1,1 +1,64 @@
 <page-header></page-header>
+<h1>test</h1>
+
+
+<section>
+    <form
+      #bookSearch="ngForm"
+      action="submit"
+      (ngSubmit)="getBook(bookSearch.value)"
+    >
+      <div class="field">
+        <label class="label">Search</label>
+        <div class="control">
+          <input
+            class="input"
+            type="text"
+            placeholder="Search"
+            name="searchTerm"
+            ngModel
+          />
+        </div>
+      </div>
+      <div class="field has-text-centered">
+        <div class="control">
+          <button class="button is-rounded" type="submit" value="submit">
+            Search
+          </button>
+        </div>
+      </div>
+    </form>
+  </section>
+
+  <div *ngFor="let book of books" class="columns">
+    <div class="column is-one-third">
+        <div>
+            <img src="{{ book.imageLinks.thumbnail }}" alt="medium">
+        </div>
+        <div>
+            <h1>5/5</h1>
+        </div>
+    </div>
+    <div class="column is-one-third">
+        <h1>User reviews will go here</h1>
+    </div>
+    <div class="column is-one-third">
+        <div>
+            <h1 class="card-title is-centered">similer books go here</h1>
+            <img src="{{ book.imageLinks.thumbnail }}" alt="medium">
+        </div>
+        <div>
+            <h1 class="card-title is-centered">similer books go here</h1>
+            <img src="{{ book.imageLinks.thumbnail }}" alt="medium">
+        </div>
+        <div>
+            <h1 class="card-title is-centered">similer books go here</h1>
+            <img src="{{ book.imageLinks.thumbnail }}" alt="medium">
+        </div>
+    </div>
+    <div>
+        <h1>----------------------------------------------------------------------</h1>
+    </div>
+  </div>
+
+
