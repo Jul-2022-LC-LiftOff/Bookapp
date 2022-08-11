@@ -32,11 +32,11 @@
 
   <div *ngFor="let book of books" class="columns">
     <div class="column is-one-third">
-        <div>
+        <div style="display:flex;justify-content:center;align-items:center;">
             <img src="{{ book.imageLinks.thumbnail }}" alt="medium">
         </div>
-        <div>
-            <h1>5/5</h1>
+        <div style="display:flex;justify-content:center;align-items:center;">
+            <span>{{ book.averageRating }}/5 out of {{ book.ratingsCount }} ratings</span>
         </div>
     </div>
     <div class="column is-one-third">
