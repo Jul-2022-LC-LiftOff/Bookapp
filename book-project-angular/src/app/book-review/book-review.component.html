@@ -38,6 +38,37 @@
         <div style="display:flex;justify-content:center;align-items:center;">
             <span>{{ book.averageRating }}/5 out of {{ book.ratingsCount }} ratings</span>
         </div>
+        <div style="display:flex;justify-content:center;align-items:center;">
+            <a href="{{  book.previewLink }}">preview</a>
+        </div>
+        <div style="display:flex;justify-content:center;align-items:center;">
+            <a href="{{  book.infoLink }}">info</a>
+        </div>
+        <p style="display:flex;justify-content:center;align-items:center;">
+            <b>Author: </b>
+            <span>{{ book.authors }}</span>
+          </p>
+          <p style="display:flex;justify-content:center;align-items:center;">
+            <b>Publisher: </b>
+            <span>{{ book.publisher }}</span>
+            <span>test</span>
+          </p>
+          <p style="display:flex;justify-content:center;align-items:center;">
+            <b>Published Date: </b>
+            <span>{{ book.publishedDate }}</span>
+          </p>
+          <p style="display:flex;justify-content:center;align-items:center;">
+            <b>Pages: </b>
+            <span>{{ book.pageCount }}</span>
+          </p>
+          <p style="display:flex;justify-content:center;align-items:center;">
+            <b>Average Rating: </b>
+            <span>{{ book.averageRating }}</span>
+          </p>
+          <b style="display:flex;justify-content:center;align-items:center;">Description: </b>
+        <p style="display:flex;justify-content:center;align-items:center;">
+            <span>{{ book.description }}</span>
+        </p>
     </div>
     <div class="column is-one-third">
         <h1>User reviews will go here</h1>
