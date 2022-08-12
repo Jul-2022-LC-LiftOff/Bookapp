@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Book } from '../data/book';
+import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 
 @Component({
   selector: 'book-display-page',
@@ -23,12 +24,15 @@ export class BookDisplayPageComponent implements OnInit {
     fetch(`https://www.googleapis.com/books/v1/volumes?q=${searchTerm}&key=${key}`)
       .then(response => response.json())
       .then(result => {
-        // console.log(result)
+        // console.log(result.items[0].id)
         if (result.items.length > 0) {
           for (let i = 0; i < result.items.length; i++) {
-            let data = result.items[i].volumeInfo
-            // console.log(data)
-            this.books[i] = data
+            console.log(result.items[i].id);
+            let data = result.items[i].volumeInfo;
+            let id = result.items[i].id;
+            this.books[i] = data;
+            this.books[i].id = id;
+            console.log(this.books[i].id)
           }
         } else {
           console.log("Nothing to return.")
