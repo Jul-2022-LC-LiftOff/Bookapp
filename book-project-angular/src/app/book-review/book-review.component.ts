@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Book } from '../data/book';
-import { Router, ActivatedRoute, ParamMap } from '@angular/router';
+import { Router, ActivatedRoute, ParamMap, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-book-review',
@@ -18,8 +18,8 @@ export class BookReviewComponent implements OnInit {
 
   constructor(private activatedRoute: ActivatedRoute) { }
 
-  test(){
-    console.log("test")
+  reload(){
+    setTimeout(() => {  window.location.reload(); }, 1);
   }
 
 
@@ -29,22 +29,22 @@ export class BookReviewComponent implements OnInit {
     fetch(`https://www.googleapis.com/books/v1/volumes/${this.bookid}?key=${this.key}`)
     .then(response => response.json())
     .then(result => {
-      // console.log(result)
           this.books[0] = result.volumeInfo
-          this.searchTerm = result.volumeInfo.authors
-          console.log(this.searchTerm)
+          this.searchTerm = result.volumeInfo.categories
+          console.log(result.volumeInfo.categories)
+          fetch(`https://www.googleapis.com/books/v1/volumes?q=${this.searchTerm}&key=${this.key}`)
+          .then(response => response.json())
+          .then(result => {
+            if (result.items.length > 0) {
+              for (let i = 0; i < result.items.length; i++) {
+                let data = result.items[i].volumeInfo;
+                let id = result.items[i].id;
+                this.similerbooks[i] = data;
+                this.similerbooks[i].id = id;
+              }
+          }
+        })
     })  
-    fetch(`https://www.googleapis.com/books/v1/volumes?q=${this.searchTerm}&key=${this.key}`)
-    .then(response => response.json())
-    .then(result => {
-      if (result.items.length > 0) {
-        for (let i = 0; i < result.items.length; i++) {
-          let data = result.items[i].volumeInfo;
-          let id = result.items[i].id;
-          this.similerbooks[i] = data;
-          this.similerbooks[i].id = id;
-        }
-    }
-  })
+
 }
 }

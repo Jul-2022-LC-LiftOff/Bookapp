@@ -80,11 +80,11 @@
         <div>
             <h1 class="card-title is-centered">similer books you man like</h1>
         </div>
-        <div *ngFor="let similerbook of similerbooks" (onclick)="test()">
+        <div *ngFor="let similerbook of similerbooks">
           <header class="card-header">
             <h1 class="card-title is-centered">{{ similerbook.title }}</h1>
           </header>
-          <img routerLinkActive="active" routerLink="/book/{{similerbook.id}}" src="{{ similerbook.imageLinks.thumbnail }}" alt="thumbnail"/>
+          <img routerLinkActive="active" routerLink="/book/{{similerbook.id}}" src="{{ similerbook.imageLinks.thumbnail }}" alt="thumbnail" (click)="reload()"/>
         </div>
     </div>
   </div>
