@@ -21,22 +21,13 @@ export class BookReviewComponent implements OnInit {
   ngOnInit() {
     this.bookid = this.activatedRoute.snapshot.paramMap.get('id');
     console.log(this.bookid);
-    this.searchTerm = this.bookid;
-    fetch(`https://www.googleapis.com/books/v1/volumes?q=${this.searchTerm}&key=${this.key}`)
-    
+    fetch(`https://www.googleapis.com/books/v1/volumes/${this.bookid}?key=${this.key}`)
     .then(response => response.json())
     .then(result => {
-      // console.log(result)
-      if (result.items.length > 0) {
-        for (let i = 0; i < result.items.length; i++) {
-          let data = result.items[i].volumeInfo
+      console.log(result.volumeInfo)
+          this.books = result.volumeInfo
           // console.log(data)
-          this.books[i] = data
-        }
-      } else {
-        console.log("Nothing to return.")
-      }
-    })
+    })  
   }
 
   
