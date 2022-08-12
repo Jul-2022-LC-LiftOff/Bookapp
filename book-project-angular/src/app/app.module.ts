@@ -14,7 +14,7 @@ import { BookReviewComponent } from './book-review/book-review.component';
 import { Routes, RouterModule } from '@angular/router';
 
 const routes: Routes = [
-  { path: 'book', component: BookReviewComponent },
+  { path: 'book/:id', component: BookReviewComponent},
   { path: 'home', component: BookDisplayPageComponent },
   { path: '', redirectTo: '/home', pathMatch: 'full' },
 ];

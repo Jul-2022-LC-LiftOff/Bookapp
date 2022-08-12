@@ -1,8 +1,7 @@
 <page-header></page-header>
-<h1>test</h1>
 
 
-<section>
+<!-- <section>
     <form
       #bookSearch="ngForm"
       action="submit"
@@ -28,7 +27,7 @@
         </div>
       </div>
     </form>
-  </section>
+  </section> -->
 
   <div *ngFor="let book of books" class="columns">
     <div class="column is-one-third">
@@ -40,7 +39,6 @@
         </div>
         <div style="display:flex;justify-content:center;align-items:center;">
             <a href="{{  book.previewLink }}">preview</a>
-            <span>{{name}}</span>
         </div>
         <div style="display:flex;justify-content:center;align-items:center;">
             <a href="{{  book.infoLink }}">info</a>
