@@ -32,7 +32,7 @@
   <div *ngFor="let book of books" class="columns">
     <div class="column is-one-third">
         <div style="display:flex;justify-content:center;align-items:center;">
-            <img src="{{ book.imageLinks.thumbnail }}" alt="medium">
+            <img src="{{ book.imageLinks.small }}" alt="medium">
         </div>
         <div style="display:flex;justify-content:center;align-items:center;">
             <span>{{ book.averageRating }}/5 out of {{ book.ratingsCount }} ratings</span>
@@ -78,20 +78,14 @@
     </div>
     <div class="column is-one-third">
         <div>
-            <h1 class="card-title is-centered">similer books go here</h1>
-            <img src="{{ book.imageLinks.thumbnail }}" alt="medium">
+            <h1 class="card-title is-centered">similer books you man like</h1>
         </div>
-        <div>
-            <h1 class="card-title is-centered">similer books go here</h1>
-            <img src="{{ book.imageLinks.thumbnail }}" alt="medium">
+        <div *ngFor="let similerbook of similerbooks" (onclick)="test()">
+          <header class="card-header">
+            <h1 class="card-title is-centered">{{ similerbook.title }}</h1>
+          </header>
+          <img routerLinkActive="active" routerLink="/book/{{similerbook.id}}" src="{{ similerbook.imageLinks.thumbnail }}" alt="thumbnail"/>
         </div>
-        <div>
-            <h1 class="card-title is-centered">similer books go here</h1>
-            <img src="{{ book.imageLinks.thumbnail }}" alt="medium">
-        </div>
-    </div>
-    <div>
-        <h1>----------------------------------------------------------------------</h1>
     </div>
   </div>
 
