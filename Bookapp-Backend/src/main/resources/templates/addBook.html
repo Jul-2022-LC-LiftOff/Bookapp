@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Add New Book!</title>
+</head>
+<body>
+<!--<form action='/book/new' method='POST'>-->
+<!--  <label>Title: <input th:field="${book.title}"></label><br />-->
+<!--  <p th:errors="${book.title}"></p>-->
+<!--  <label>Author: <select th:field="${book.author}">-->
+<!--    <option th:each="author : ${authors}"-->
+<!--            th:value="${author.id}"-->
+<!--            th:text="${author.getAuthorName()}"></option>-->
+<!--  </select></label><br />-->
+<!--  <label>ISBN: <input th:field="${book.isbn}"></label><br />-->
+<!--  <br/>-->
+<!--  <input type='submit'>-->
+<!--</form>-->
+
+<form action ='/book/new' method="post" >
+  <div>
+    <label th:for="title">Name</label>
+    <input class="form-control" th:field="${book.title}" />
+    <span th:errors="${book.title}" class="error"></span>
+
+    <label th:for="description">Description</label>
+    <input class="form-control" th:field="${book.description}" />
+    <span th:errors="${book.description}" class="error"></span>
+
+    <label th:for="publisher">Publisher</label>
+    <input class="form-control" th:field="${book.publisher}" />
+    <span th:errors="${book.publisher}" class="error"></span>
+  </div>
+
+  <label th:for="publishedDate">publishedDate</label>
+  <input class="form-control" th:field="${book.publishedDate}" />
+  <span th:errors="${book.publishedDate}" class="error"></span>
+  </div>
+
+  <label th:for="isbn">isbn</label>
+  <input class="form-control" th:field="${book.isbn}" />
+  <span th:errors="${book.isbn}" class="error"></span>
+  </div>
+
+  <input type="submit"/>
+
+</form>
+</body>
+</html>
