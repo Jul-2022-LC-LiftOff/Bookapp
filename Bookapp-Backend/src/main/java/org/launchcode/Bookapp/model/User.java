@@ -1,20 +1,17 @@
 package org.launchcode.Bookapp.model;
 
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 
 
 @Entity
-public class User {
+public class User extends AbstractEntity{
 
-    @Id
-    @GeneratedValue
-    private int id;
+//    @Id
+//    @GeneratedValue
+//    private int id;
 
     @NotBlank
     @Size(min = 1, max = 100)
@@ -25,23 +22,75 @@ public class User {
     private String lastName;
 
     @NotBlank
-    @Size(min = 1, max = 100)
-    private String userName;
+    @Size(min = 1, max = 20)
+    private String username;
 
-    @NotBlank
-    @Size(min = 1, max = 100)
-    private String password;
+    @NotNull
+    private String pwHash;
 
     @Email
     @NotEmpty(message = "Email is required")
     private String email;
 
-    public User(int id, String firstName, String lastName, String userName, String password, String email) {
-        this.id = id;
+    //just added
+//    @OneToMany(mappedBy = "user")
+//    private List<Library> libraries;
+
+    private static final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+
+    public User(){}
+    public User( String firstName, String lastName, String username, String pwHash, String email) {
         this.firstName = firstName;
         this.lastName = lastName;
-        this.userName = userName;
+        this.username = username;
+        this.email = email;
+        this.pwHash = encoder.encode(pwHash);
+    }
+
+    public String getUsername(){
+        return username;
+    }
+
+
+
+    public boolean isMatchingPassword(String password) {
+        String candidateHash = encoder.encode(password);
+        return encoder.matches(password, pwHash);
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
         this.email = email;
     }
 
+//    public List<Library> getLibraries() {
+//        return libraries;
+//    }
+//
+//    public void setLibraries(List<Library> libraries) {
+//        this.libraries = libraries;
+//    }
 }
