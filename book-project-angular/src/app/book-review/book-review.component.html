@@ -1,0 +1,92 @@
+<page-header></page-header>
+
+
+<!-- <section>
+    <form
+      #bookSearch="ngForm"
+      action="submit"
+      (ngSubmit)="getBook(bookSearch.value)"
+    >
+      <div class="field">
+        <label class="label">Search</label>
+        <div class="control">
+          <input
+            class="input"
+            type="text"
+            placeholder="Search"
+            name="searchTerm"
+            ngModel
+          />
+        </div>
+      </div>
+      <div class="field has-text-centered">
+        <div class="control">
+          <button class="button is-rounded" type="submit" value="submit">
+            Search
+          </button>
+        </div>
+      </div>
+    </form>
+  </section> -->
+
+  <div *ngFor="let book of books" class="columns">
+    <div class="column is-one-third">
+        <div style="display:flex;justify-content:center;align-items:center;">
+            <img src="{{ book.imageLinks.small }}" alt="medium">
+        </div>
+        <div style="display:flex;justify-content:center;align-items:center;">
+            <span>{{ book.averageRating }}/5 out of {{ book.ratingsCount }} ratings</span>
+        </div>
+        <div style="display:flex;justify-content:center;align-items:center;">
+            <a href="{{  book.previewLink }}">preview</a>
+        </div>
+        <div style="display:flex;justify-content:center;align-items:center;">
+            <a href="{{  book.infoLink }}">info</a>
+        </div>
+        <p style="display:flex;justify-content:center;align-items:center;">
+            <b>Author: </b>
+            <span>{{ book.authors }}</span>
+          </p>
+          <p style="display:flex;justify-content:center;align-items:center;">
+            <b>Publisher: </b>
+            <span>{{ book.publisher }}</span>
+            <span>test</span>
+          </p>
+          <p style="display:flex;justify-content:center;align-items:center;">
+            <b>Published Date: </b>
+            <span>{{ book.publishedDate }}</span>
+          </p>
+          <p style="display:flex;justify-content:center;align-items:center;">
+            <b>Pages: </b>
+            <span>{{ book.pageCount }}</span>
+          </p>
+          <p style="display:flex;justify-content:center;align-items:center;">
+            <b>Average Rating: </b>
+            <span>{{ book.averageRating }}</span>
+          </p>
+          <p style="display:flex;justify-content:center;align-items:center;">
+            <b>Catagories: </b>
+            <span>{{ book.catagories }}</span>
+          </p>
+          <b style="display:flex;justify-content:center;align-items:center;">Description: </b>
+        <p style="display:flex;justify-content:center;align-items:center;">
+            <span>{{ book.description }}</span>
+        </p>
+    </div>
+    <div class="column is-one-third">
+        <h1>User reviews will go here</h1>
+    </div>
+    <div class="column is-one-third">
+        <div>
+            <h1 class="card-title is-centered">similer books you man like</h1>
+        </div>
+        <div *ngFor="let similerbook of similerbooks">
+          <header class="card-header">
+            <h1 class="card-title is-centered">{{ similerbook.title }}</h1>
+          </header>
+          <img routerLinkActive="active" routerLink="/book/{{similerbook.id}}" src="{{ similerbook.imageLinks.thumbnail }}" alt="thumbnail" (click)="reload()"/>
+        </div>
+    </div>
+  </div>
+
+

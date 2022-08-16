@@ -35,7 +35,7 @@
     <div class="content is-small has-text-left">
       <div class="columns">
         <div class="column is-one-third">
-          <img src="{{ book.imageLinks.thumbnail }}" alt="thumbnail" />
+          <img routerLinkActive="active" routerLink="/book/{{book.id}}" src="{{ book.imageLinks.thumbnail }}" alt="thumbnail" />
         </div>
         <div class="column is-one-third">
           <p>
@@ -45,6 +45,7 @@
           <p>
             <b>Publisher: </b>
             <span>{{ book.publisher }}</span>
+            <span>test</span>
           </p>
           <p>
             <b>Published Date: </b>
@@ -65,6 +66,12 @@
           <p>
             <b>Rating Count: </b>
             <span>{{ book.ratingsCount }}</span>
+          </p>
+        </div>
+        <div class="column is-one-third">
+          <p>
+            <b>Description: </b>
+            <span>{{ book.description }}</span>
           </p>
         </div>
       </div>

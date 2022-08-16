@@ -9,6 +9,15 @@ import { BookDisplayPageComponent } from './book-display-page/book-display-page.
 import { SearchBarComponent } from './search-bar/search-bar.component';
 import { SearchResultListComponent } from './search-result-list/search-result-list.component';
 import { SearchResultPageComponent } from './search-result-page/search-result-page.component';
+// import { AppRoutingModule } from './app-routing.module';
+import { BookReviewComponent } from './book-review/book-review.component';
+import { Routes, RouterModule } from '@angular/router';
+
+const routes: Routes = [
+  { path: 'book/:id', component: BookReviewComponent},
+  { path: 'home', component: BookDisplayPageComponent },
+  { path: '', redirectTo: '/home', pathMatch: 'full' },
+];
 
 @NgModule({
   declarations: [
@@ -19,11 +28,13 @@ import { SearchResultPageComponent } from './search-result-page/search-result-pa
     BookDisplayPageComponent,
     SearchBarComponent,
     SearchResultListComponent,
-    SearchResultPageComponent
+    SearchResultPageComponent,
+    BookReviewComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
+    RouterModule.forRoot(routes),
   ],
   providers: [],
   bootstrap: [AppComponent]
