@@ -1,7 +1,9 @@
 package org.launchcode.Bookapp.controllers;
 
 import org.launchcode.Bookapp.Repositories.BookRepository;
+import org.launchcode.Bookapp.Repositories.UserRepository;
 import org.launchcode.Bookapp.model.Book;
+import org.launchcode.Bookapp.model.User;
 import org.springframework.beans.factory.ObjectFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.util.Optional;
 
 @Controller
 @RequestMapping(value = "/book")
@@ -23,12 +26,25 @@ public class BookController {
     private BookRepository bookRepository;
 
     @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
     ObjectFactory<HttpSession> httpSessionFactory;
 
 
     @GetMapping
     public String getBooks(Model model) {
         model.addAttribute("books", bookRepository.findAll());
+        HttpSession session = httpSessionFactory.getObject();
+        int userId = (Integer) session.getAttribute("user");
+        //User testUser = userRepository.findByUsername("user1");
+        Optional <User> testUser2 = userRepository.findById(userId);
+        System.out.println(testUser2);
+        if (testUser2.isPresent()) {
+            User currentUser = (User) testUser2.get();
+            System.out.println(currentUser.getUsername());
+        }
+
         return "bookList";
     }
 
@@ -49,7 +65,15 @@ public class BookController {
         }
         HttpSession session = httpSessionFactory.getObject();
         int userId = (Integer) session.getAttribute("user");
-        System.out.println(userId);
+        Optional<User> optUser = userRepository.findById(userId);
+        System.out.println(optUser);
+        if (optUser.isPresent()) {
+            User currentUser = (User) optUser.get();
+            System.out.println(currentUser.getUsername());
+            currentUser.addBooks(newBook);
+        } else{
+            return "redirect:../";
+        }
 
         bookRepository.save(newBook);
 

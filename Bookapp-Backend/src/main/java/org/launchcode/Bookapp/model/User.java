@@ -7,6 +7,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.validation.constraints.*;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -43,7 +44,7 @@ public class User extends AbstractEntity{
              joinColumns = @JoinColumn(name="user_id"),
              inverseJoinColumns = @JoinColumn(name="book_id")
      )
-     private List<Book> books;
+     private List<Book> books = new ArrayList<>();
 
     private static final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
@@ -95,11 +96,13 @@ public class User extends AbstractEntity{
         this.email = email;
     }
 
-//    public List<Library> getLibraries() {
-//        return libraries;
-//    }
-//
-//    public void setLibraries(List<Library> libraries) {
-//        this.libraries = libraries;
-//    }
+    public List<Book> getBooks() {
+        return books;
+    }
+
+    public void addBooks(Book books) {
+        this.books.add(books);
+    }
+
+
 }

@@ -9,5 +9,4 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 public interface UserRepository extends JpaRepository<User, Integer> {
     User findByUsername(String username);
 
-
 }

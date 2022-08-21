@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Logged In User Info</title>
+    <div th:replace="fragments/menu-fragment :: menu-fragment"></div>
+</head>
+<body>
+
+<div>
+  <p th:text = "${'Name: ' + user.username}"></p>
+    <p th:text = "${'Id: ' + user.id}"></p>
+    <p th:text = "${'First Name: ' + user.firstName}"></p>
+    <p th:text = "${'Last Name: ' + user.lastName}"></p>
+    <p th:text = "${'Email: ' + user.email}"></p>
+</div>
+
+<div>
+    <h1 th:text = "${user.firstName + ' Books'} "></h1>
+    <tr th:each ="book: ${books}">
+        <p th:text = "${book.title}"></p>
+    </tr>
+</div>
+
+</body>
+</html>
