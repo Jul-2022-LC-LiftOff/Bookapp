@@ -2,6 +2,7 @@ package org.launchcode.Bookapp.controllers;
 
 import org.launchcode.Bookapp.Repositories.BookRepository;
 import org.launchcode.Bookapp.model.Book;
+import org.springframework.beans.factory.ObjectFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 @Controller
@@ -20,15 +22,13 @@ public class BookController {
     @Autowired
     private BookRepository bookRepository;
 
-//    @Autowired
-//    private LibraryRepository libraryRepository;
-//    @Autowired
-//    private AuthorRepository authorRepository;
+    @Autowired
+    ObjectFactory<HttpSession> httpSessionFactory;
+
 
     @GetMapping
     public String getBooks(Model model) {
         model.addAttribute("books", bookRepository.findAll());
-        System.out.println( bookRepository.findAll());
         return "bookList";
     }
 
@@ -36,7 +36,7 @@ public class BookController {
     @GetMapping(value = "/new")
     public String addBookForm(Model model) {
         model.addAttribute(new Book());
-        //model.addAttribute("authors", authorRepository.findAll());
+
         return "addBook";
     }
 
@@ -47,8 +47,12 @@ public class BookController {
         if (errors.hasErrors()){
             return "addBook";
         }
+        HttpSession session = httpSessionFactory.getObject();
+        int userId = (Integer) session.getAttribute("user");
+        System.out.println(userId);
 
         bookRepository.save(newBook);
+
         model.addAttribute("bookName", newBook.getTitle());
         return "bookList";
     }

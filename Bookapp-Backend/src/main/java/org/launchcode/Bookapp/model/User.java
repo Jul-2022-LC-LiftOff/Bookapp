@@ -3,7 +3,11 @@ package org.launchcode.Bookapp.model;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.validation.constraints.*;
+import java.util.List;
 
 
 @Entity
@@ -32,9 +36,14 @@ public class User extends AbstractEntity{
     @NotEmpty(message = "Email is required")
     private String email;
 
-    //just added
-//    @OneToMany(mappedBy = "user")
-//    private List<Library> libraries;
+
+     @ManyToMany
+     @JoinTable(
+             name="user_book",
+             joinColumns = @JoinColumn(name="user_id"),
+             inverseJoinColumns = @JoinColumn(name="book_id")
+     )
+     private List<Book> books;
 
     private static final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 

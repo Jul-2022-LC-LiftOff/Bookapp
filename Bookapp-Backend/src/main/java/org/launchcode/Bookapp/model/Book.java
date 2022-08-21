@@ -1,13 +1,13 @@
 package org.launchcode.Bookapp.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+import java.util.List;
 
 
 @Entity
+
 public class Book {
 
     @Id
@@ -27,6 +27,14 @@ public class Book {
 
     @NotBlank
     private String isbn;
+
+    @ManyToMany
+    @JoinTable(
+            name = "user_book",
+            joinColumns = @JoinColumn(name="book_id"),
+            inverseJoinColumns = @JoinColumn(name="user_id")
+    )
+    private List<User> users;
 
 
     public Book(){}
