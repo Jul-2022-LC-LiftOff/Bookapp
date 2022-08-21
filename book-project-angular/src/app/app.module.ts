@@ -12,6 +12,7 @@ import { SearchResultPageComponent } from './search-result-page/search-result-pa
 // import { AppRoutingModule } from './app-routing.module';
 import { BookReviewComponent } from './book-review/book-review.component';
 import { Routes, RouterModule } from '@angular/router';
+import { NewUserModalComponent } from './new-user-modal/new-user-modal.component';
 
 const routes: Routes = [
   { path: 'book/:id', component: BookReviewComponent},
@@ -29,7 +30,8 @@ const routes: Routes = [
     SearchBarComponent,
     SearchResultListComponent,
     SearchResultPageComponent,
-    BookReviewComponent
+    BookReviewComponent,
+    NewUserModalComponent
   ],
   imports: [
     BrowserModule,

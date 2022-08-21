@@ -1,0 +1,179 @@
+<div *ngIf="newUserClicked" class="modal is-active">
+  <div class="modal-background"></div>
+  <div class="modal-card">
+    <header class="modal-card-head" id="header">
+      <p class="modal-card-title has-text-centered" id="header-text">
+        New User
+      </p>
+      <button
+        class="delete"
+        aria-label="close"
+        (click)="onCloseModal()"
+      ></button>
+    </header>
+    <section class="modal-card-body">
+      <form
+        #newUser="ngForm"
+        action="submit"
+        (ngSubmit)="onClickSubmit(newUser.value)"
+      >
+        <div class="field form-group">
+          <label class="label"
+            >First Name&nbsp;&nbsp;&nbsp;<span
+              *ngIf="firstName.touched && firstName.invalid"
+              class="invalid"
+            >
+              First Name required </span
+            ><span
+              *ngIf="firstName.errors?.['minlength'] || firstName.errors?.['maxlength']"
+              class="invalid"
+            >
+              First Name cannot be longer than 30 characters.
+            </span></label
+          >
+          <div class="control">
+            <input
+              required
+              minlength="1"
+              maxlength="30"
+              #firstName="ngModel"
+              class="input"
+              type="name"
+              placeholder="Last Name"
+              name="name"
+              ngModel
+            />
+          </div>
+        </div>
+
+        <div class="field form-group">
+          <label class="label"
+            >Last Name&nbsp;&nbsp;&nbsp;<span
+              *ngIf="name.touched && name.invalid"
+              class="invalid"
+            >
+              Last Name required </span
+            ><span
+              *ngIf="username.errors?.['minlength'] || username.errors?.['maxlength']"
+              class="invalid"
+            >
+              last Name cannot be longer than 30 characters.
+            </span></label
+          >
+          <div class="control">
+            <input
+              required
+              minlength="1"
+              maxlength="30"
+              #name="ngModel"
+              class="input"
+              type="name"
+              placeholder="Last Name"
+              name="name"
+              ngModel
+            />
+          </div>
+        </div>
+
+        <div class="field form-group">
+          <label class="label"
+            >Email&nbsp;&nbsp;&nbsp;<span
+              *ngIf="email.touched && email.invalid"
+              class="invalid"
+            >
+              Email Required </span
+            ><span
+              *ngIf="email.errors?.['minlength'] || email.errors?.['maxlength']"
+              class="invalid"
+            >
+              Invalid Email Address
+            </span></label
+          >
+          <div class="control">
+            <input
+              #email="ngModel"
+              required
+              minlength="3"
+              class="input"
+              type="email"
+              placeholder="Email"
+              name="email"
+              ngModel
+            />
+          </div>
+        </div>
+
+        <div class="field form-group">
+          <label class="label"
+            >Username&nbsp;&nbsp;&nbsp;<span
+              *ngIf="username.touched && username.invalid"
+              class="invalid"
+            >
+              Username required</span
+            ><span
+              *ngIf="username.errors?.['minlength'] || username.errors?.['maxlength']"
+              class="invalid"
+            >
+              Username must be between 5 and 30 characters.
+            </span></label
+          >
+          <div class="control">
+            <input
+              required
+              #username="ngModel"
+              minlength="5"
+              maxlength="30"
+              class="input"
+              type="text"
+              placeholder="Username"
+              name="Username"
+              ngModel
+            />
+          </div>
+        </div>
+
+        <div class="field form-group">
+          <label class="label"
+            >Password&nbsp;&nbsp;&nbsp;<span
+              *ngIf="password.touched && password.invalid"
+              class="invalid"
+            >
+              Password required</span
+            ><span
+              *ngIf="password.errors?.['minlength'] || password.errors?.['maxlength']"
+              class="invalid"
+            >
+              password must be between 5 and 30 characters.
+            </span></label
+          >
+          <div class="control">
+            <input
+              #password="ngModel"
+              required
+              minlength="5"
+              maxlength="30"
+              class="input"
+              type="password"
+              placeholder="Password"
+              name="password"
+              ngModel
+            />
+          </div>
+        </div>
+
+        <div class="field has-text-centered">
+          <div class="control">
+            <button
+              class="button is-rounded"
+              type="submit"
+              value="submit"
+              [disabled]="!newUser.valid"
+            >
+              submit
+            </button>
+          </div>
+        </div>
+      </form>
+    </section>
+  </div>
+</div>
