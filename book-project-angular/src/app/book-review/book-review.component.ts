@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Book } from '../data/book';
+import { Book } from '../model/book';
 import { Router, ActivatedRoute, ParamMap, RouterLink } from '@angular/router';
 
 @Component({
@@ -8,7 +8,7 @@ import { Router, ActivatedRoute, ParamMap, RouterLink } from '@angular/router';
   styleUrls: ['./book-review.component.scss']
 })
 export class BookReviewComponent implements OnInit {
-  
+
 
   books: Array<Book> = [];
   similerbooks: Array<Book> = [];
@@ -18,8 +18,8 @@ export class BookReviewComponent implements OnInit {
 
   constructor(private activatedRoute: ActivatedRoute) { }
 
-  reload(){
-    setTimeout(() => {  window.location.reload(); }, 1);
+  reload() {
+    setTimeout(() => { window.location.reload(); }, 1);
   }
 
 
@@ -27,12 +27,12 @@ export class BookReviewComponent implements OnInit {
     this.bookid = this.activatedRoute.snapshot.paramMap.get('id');
     // console.log(this.bookid);
     fetch(`https://www.googleapis.com/books/v1/volumes/${this.bookid}?key=${this.key}`)
-    .then(response => response.json())
-    .then(result => {
-          this.books[0] = result.volumeInfo
-          this.searchTerm = result.volumeInfo.categories
-          console.log(result.volumeInfo.categories)
-          fetch(`https://www.googleapis.com/books/v1/volumes?q=${this.searchTerm}&key=${this.key}`)
+      .then(response => response.json())
+      .then(result => {
+        this.books[0] = result.volumeInfo
+        this.searchTerm = result.volumeInfo.categories
+        console.log(result.volumeInfo.categories)
+        fetch(`https://www.googleapis.com/books/v1/volumes?q=${this.searchTerm}&key=${this.key}`)
           .then(response => response.json())
           .then(result => {
             if (result.items.length > 0) {
@@ -42,9 +42,9 @@ export class BookReviewComponent implements OnInit {
                 this.similerbooks[i] = data;
                 this.similerbooks[i].id = id;
               }
-          }
-        })
-    })  
+            }
+          })
+      })
 
-}
+  }
 }

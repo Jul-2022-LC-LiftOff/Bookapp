@@ -38,7 +38,7 @@
           ></span>
         </li>
         <li>
-          <a >Most Popular</a>
+          <a>Most Popular</a>
         </li>
         <li>
           <a href="">Most Popular</a>
@@ -61,4 +61,10 @@
   [loginClicked]="loginClicked"
   (closeModal)="closeModal($event)"
   (loggedIn)="validUser($event)"
+  (newUserClicked)="newUser($event)"
 ></login-modal>
+<new-user-modal
+  [newUserClicked]="newUserClicked"
+  (closeModal)="closeNewUserModal($event)"
+>
+</new-user-modal>

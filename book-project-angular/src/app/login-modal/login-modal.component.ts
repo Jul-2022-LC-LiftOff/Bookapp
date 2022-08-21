@@ -10,6 +10,7 @@ export class LoginModalComponent implements OnInit {
   @Input() loginClicked: boolean;
   @Output() closeModal = new EventEmitter<boolean>()
   @Output() loggedIn = new EventEmitter<boolean>()
+  @Output() newUserClicked = new EventEmitter<boolean>()
   loginFailed: boolean;
 
   // temporary credentials:
@@ -31,25 +32,12 @@ export class LoginModalComponent implements OnInit {
     this.closeModal.emit(false)
   }
 
-  onClickSubmit(data: { username: string, password: string }) {
-    // console.log(data.username, data.password)
-    if (data.username == this.username && data.password == this.password) {
-      this.invalidPassword = false
-      this.invalidUsername = false
-      this.loggedIn.emit(true);
-      this.onCloseModal()
-    } else if (data.password != this.password && data.username == this.username) {
-      this.invalidPassword = true
-      this.invalidUsername = false
-      this.loggedIn.emit(false)
-    } else if (data.username != this.username && data.password == this.password) {
-      this.invalidUsername = true
-      this.invalidPassword = false
-      this.loggedIn.emit(false)
-    } else {
-      this.invalidPassword = true
-      this.invalidUsername = true
-      this.loggedIn.emit(false)
-    }
+  newUserClick() {
+    this.closeModal.emit(false)
+    this.newUserClicked.emit(true)
+  }
+
+  onClickSubmit(userData) {
+    // Send HTTP REQUEST to SPRING to verify user is in the user table. 
   }
 }

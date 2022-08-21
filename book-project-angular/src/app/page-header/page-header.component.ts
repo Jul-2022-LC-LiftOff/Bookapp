@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Book } from '../data/book';
+import { Book } from '../model/book';
 @Component({
   selector: 'page-header',
   templateUrl: './page-header.component.html',
@@ -8,28 +8,42 @@ import { Book } from '../data/book';
 export class PageHeaderComponent implements OnInit {
 
   @Output() emitBooks = new EventEmitter<any>();
-  books: Array<Book>
+  books: Array<Book>;
   loginClicked: boolean;
   loggedIn: boolean;
+  newUserClicked: boolean;
+
+
   constructor() { }
+
+  newUser(event: boolean) {
+    this.newUserClicked = event;
+  }
 
   ngOnInit(): void {
   }
 
   onLoginClicked() {
-    this.loginClicked = true
+    this.loginClicked = true;
   }
 
   closeModal(event: boolean) {
-    this.loginClicked = event
+    this.loginClicked = event;
+  }
+
+  closeNewUserModal(event: boolean) {
+    this.newUserClicked = event;
   }
 
   validUser(valid: boolean) {
-    this.loggedIn = valid
+    this.loggedIn = valid;
   }
 
   emitSearchedBooks(books: Array<any>) {
-    console.log(books)
-    this.emitBooks.emit(books)
+    console.log(books);
+    this.emitBooks.emit(books);
   }
+
+
 }
+

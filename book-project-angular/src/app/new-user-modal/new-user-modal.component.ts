@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, EventEmitter, Output } from '@angular/core';
 
 @Component({
   selector: 'new-user-modal',
@@ -7,8 +7,8 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class NewUserModalComponent implements OnInit {
 
-  @Input()
-  newUserClicked: boolean = true
+  @Input() newUserClicked: boolean;
+  @Output() closeModal = new EventEmitter<boolean>();
 
   constructor() { }
 
@@ -16,12 +16,11 @@ export class NewUserModalComponent implements OnInit {
   }
 
   onCloseModal() {
-
+    this.closeModal.emit(false);
   }
 
-
   onClickSubmit(values) {
-    console.log(values)
+    console.log(values);
   }
 
 }

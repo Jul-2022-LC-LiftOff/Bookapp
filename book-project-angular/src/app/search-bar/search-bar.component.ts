@@ -1,5 +1,5 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { Book } from '../data/book';
+import { Book } from '../model/book';
 
 @Component({
   selector: 'search-bar',

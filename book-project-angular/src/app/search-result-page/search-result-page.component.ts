@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Book } from '../data/book';
+import { Book } from '../model/book';
 @Component({
   selector: 'search-result-page',
   templateUrl: './search-result-page.component.html',
