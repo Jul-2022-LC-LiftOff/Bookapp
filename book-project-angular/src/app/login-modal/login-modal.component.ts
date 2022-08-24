@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { getDatabase, ref, set, child, get } from "firebase/database";
 import { initializeApp } from 'firebase/app';
+import { getAuth, signInWithRedirect , GoogleAuthProvider, signInWithPopup, signOut } from "firebase/auth";
 
 @Component({
   selector: 'login-modal',
@@ -23,6 +24,11 @@ export class LoginModalComponent implements OnInit {
   invalidUsername: boolean;
 
   userId = 1;
+  user;
+
+  provider = new GoogleAuthProvider();
+  auth = getAuth();
+  dbRef = ref(getDatabase());
 
   constructor() { }
 
@@ -39,12 +45,12 @@ export class LoginModalComponent implements OnInit {
   app = initializeApp(this.firebaseConfig);
 
   database = getDatabase(this.app);
+  existingUser = this.auth.currentUser;
 
-  writeUserData(name, password) {
+  writeUserData(name) {
     const db = getDatabase();
     set(ref(db, 'users/' + this.userId), {
-      username: name,
-      password: password
+      username: name
     });
     const dbRef = ref(getDatabase());
     get(child(dbRef, `users/${this.userId}`)).then((snapshot) => {
@@ -58,16 +64,13 @@ export class LoginModalComponent implements OnInit {
     });
   }
 
-
-  ngOnInit(): void {
-  }
-
+  ngOnInit(): void {}
 
   onCloseModal() {
     this.closeModal.emit(false)
   }
 
-  onClickSubmit(data: { username: string, password: string }) {
+  onClickSubmit() {
     // console.log(data.username, data.password)
     // if (data.username == this.username && data.password == this.password) {
     //   this.invalidPassword = false
@@ -87,7 +90,46 @@ export class LoginModalComponent implements OnInit {
     //   this.invalidUsername = true
     //   this.loggedIn.emit(false)
     // }
-    this.userId++;
-    this.writeUserData(this.username, this.password)
+    // this.userId++;
+    // this.writeUserData(this.username, this.password)
+    signInWithPopup(this.auth, this.provider)
+  .then((result) => {
+  // This gives you a Google Access Token. You can use it to access the Google API.
+  const credential = GoogleAuthProvider.credentialFromResult(result);
+  const token = credential.accessToken;
+  // The signed-in user info.
+  this.user = result.user;
+  this.userId = this.user.uid;
+  console.log(this.user);
+  get(child(this.dbRef, `users/${this.userId}`)).then((snapshot) => {
+    if (snapshot.exists()) {
+      console.log(snapshot.val());
+    } else {
+      this.writeUserData(this.user.displayName);
+    }
+  }).catch((error) => {
+    console.error(error);
+  });
+  
+  // ...
+  }).catch((error) => {
+  // Handle Errors here.
+  const errorCode = error.code;
+  const errorMessage = error.message;
+  // The email of the user's account used.
+  const email = error.customData.email;
+  // The AuthCredential type that was used.
+  const credential = GoogleAuthProvider.credentialFromError(error);
+  // ...
+  });
+  }
+
+  onClickSignout() {
+    signOut(this.auth).then(() => {
+      // Sign-out successful.
+      console.log("signed out");
+    }).catch((error) => {
+      // An error happened.
+    });
   }
 }

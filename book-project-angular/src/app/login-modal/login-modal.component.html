@@ -10,12 +10,9 @@
       ></button>
     </header>
     <section class="modal-card-body">
-      <form
-        #userLogin="ngForm"
-        action="submit"
-        (ngSubmit)="onClickSubmit(userLogin.value)"
+      <div
       >
-        <div class="field">
+        <!-- <div class="field">
           <label class="label"
             >Username&nbsp;&nbsp;&nbsp;<span
               *ngIf="invalidUsername"
@@ -33,9 +30,9 @@
               ngModel
             />
           </div>
-        </div>
+        </div> -->
 
-        <div class="field">
+        <!-- <div class="field">
           <label class="label"
             >Password&nbsp;&nbsp;&nbsp;<span
               *ngIf="invalidPassword"
@@ -53,18 +50,18 @@
               ngModel
             />
           </div>
-        </div>
+        </div> -->
         <div class="field has-text-centered">
           <div class="control">
-            <button class="button is-rounded" type="submit" value="submit">
-              submit
+            <button class="button is-rounded" (click)="onClickSignout()">
+              sign out
             </button>
-            <button class="button is-rounded" type="external login">
+            <button class="button is-rounded" type="external login" (click)="onClickSubmit()">
               Log in with Google
             </button>
           </div>
         </div>
-      </form>
+      </div>
     </section>
   </div>
 </div>
