@@ -50,14 +50,16 @@ export class BookReviewComponent implements OnInit {
   database = getDatabase(this.app);
   auth = getAuth();
   user = this.auth.currentUser;
+  dbRef = ref(getDatabase());
 
   writeUserData() {
-    console.log(this.user);
-    console.log(this.user.uid);
-    console.log(this.bookid);
+    // console.log(this.user);
+    // console.log(this.user.uid);
+    // console.log(this.bookid);
+    // this.savedBooks.push(this.bookid);
     const db = getDatabase();
-    update(ref(db, 'users/' + this.user.uid + '/' + 'library'), {
-      books: this.bookid
+    update(ref(db, 'users/' + this.user.uid + '/library'), {
+      [this.bookid]: true
     })};
 
   ngOnInit() {

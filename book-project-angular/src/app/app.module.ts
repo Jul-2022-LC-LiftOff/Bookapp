@@ -13,9 +13,11 @@ import { BookReviewComponent } from './book-review/book-review.component';
 import { Routes, RouterModule } from '@angular/router';
 import { initializeApp } from 'firebase/app';
 import { getDatabase, ref, set } from "firebase/database";
+import { ListComponent } from './list/list.component';
 
 const routes: Routes = [
   { path: 'book/:id', component: BookReviewComponent},
+  { path: 'list', component: ListComponent},
   { path: 'home', component: BookDisplayPageComponent },
   { path: '', redirectTo: '/home', pathMatch: 'full' },
 ];
@@ -53,7 +55,8 @@ function writeUserData(userId, name, email, imageUrl) {
     SearchBarComponent,
     SearchResultListComponent,
     SearchResultPageComponent,
-    BookReviewComponent
+    BookReviewComponent,
+    ListComponent
   ],
   imports: [
     BrowserModule,
