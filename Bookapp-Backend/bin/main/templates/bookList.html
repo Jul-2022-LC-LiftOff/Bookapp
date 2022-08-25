@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>My Book List</title>
+</head>
+<body>
+<!--want a header saying this is all the books-->
+<h3>All Books in Library:</h3>
+
+<!--  Condition to handle an empty book list  -->
+
+<!--for loop creating a list for the books?-->
+<th:block th:each="book : ${books}">
+  <h4 th:text="${book.getTitle()}"></h4>
+  <ul>
+    <li th:text="${book.getDescription()}"></li>
+    <li th:text="${book.getPublisher()}"></li>
+    <li th:text="${book.getPublishedDate()}"></li>
+    <li th:text="${book.getIsbn()}"></li>
+  </ul>
+</th:block>
+
+<div th:replace="fragments/menu-fragment :: menu-fragment"></div>
+</body>
+</html>
