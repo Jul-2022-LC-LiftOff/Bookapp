@@ -67,7 +67,7 @@ export class BookReviewComponent implements OnInit {
       // User is signed in, see docs for a list of available properties
       // https://firebase.google.com/docs/reference/js/firebase.User
       // ...
-      console.log(this.user.email);
+      console.log(this.user);
     } else {
       // No user is signed in.
       console.log("it goofed")
