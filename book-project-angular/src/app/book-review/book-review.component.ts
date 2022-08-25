@@ -77,6 +77,8 @@ export class BookReviewComponent implements OnInit {
     .then(result => {
           this.books[0] = result.volumeInfo
           this.searchTerm = result.volumeInfo.authors
+          if (this.books[0].imageLinks.medium)
+          console.log(this.books[0].imageLinks.medium);
     fetch(`https://www.googleapis.com/books/v1/volumes?q=${this.searchTerm}&key=${this.key}`)
     .then(response => response.json())
     .then(result => {
