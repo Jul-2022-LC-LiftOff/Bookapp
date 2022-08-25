@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Book } from '../data/book';
 import { Router, ActivatedRoute, ParamMap, RouterLink } from '@angular/router';
 import { getAuth } from "firebase/auth";
-import { getDatabase, ref, set, child, get, update } from "firebase/database";
 import { initializeApp } from 'firebase/app';
+import { addDoc, getFirestore, collection, getDocs, doc, getDoc, setDoc, updateDoc, arrayUnion  } from "firebase/firestore";
 
 @Component({
   selector: 'app-book-review',
@@ -47,22 +47,20 @@ export class BookReviewComponent implements OnInit {
   
   app = initializeApp(this.firebaseConfig);
 
-  database = getDatabase(this.app);
   auth = getAuth();
   user = this.auth.currentUser;
-  dbRef = ref(getDatabase());
+  db = getFirestore(this.app);
+  userId = this.user.uid;
 
-  writeUserData() {
-    // console.log(this.user);
-    // console.log(this.user.uid);
-    // console.log(this.bookid);
-    // this.savedBooks.push(this.bookid);
-    const db = getDatabase();
-    update(ref(db, 'users/' + this.user.uid + '/library'), {
-      [this.bookid]: true
-    })};
 
-  ngOnInit() {
+  async writeUserData() {
+    const addBook = doc(this.db, "users", this.userId);
+    await updateDoc(addBook, {      
+      Library: arrayUnion(this.bookid)
+    });
+  }
+
+  ngOnInit() {    
     if (this.user) {
       // User is signed in, see docs for a list of available properties
       // https://firebase.google.com/docs/reference/js/firebase.User
@@ -79,22 +77,19 @@ export class BookReviewComponent implements OnInit {
     .then(result => {
           this.books[0] = result.volumeInfo
           this.searchTerm = result.volumeInfo.authors
-          // console.log(result.volumeInfo.imageLinks)
-          fetch(`https://www.googleapis.com/books/v1/volumes?q=${this.searchTerm}&key=${this.key}`)
-          .then(response => response.json())
-          .then(result => {
-            if (result.items.length > 0) {
-              for (let i = 0; i < result.items.length; i++) {
-                let data = result.items[i].volumeInfo;
-                let id = result.items[i].id;
-                this.similerbooks[i] = data;
-                this.similerbooks[i].id = id;
-                this.similerbooks = this.shuffle(this.similerbooks);
-              }
-          }
-        })
-    })  
-
-}
-
+    fetch(`https://www.googleapis.com/books/v1/volumes?q=${this.searchTerm}&key=${this.key}`)
+    .then(response => response.json())
+    .then(result => {
+      if (result.items.length > 0) {
+        for (let i = 0; i < result.items.length; i++) {
+          let data = result.items[i].volumeInfo;
+          let id = result.items[i].id;
+          this.similerbooks[i] = data;
+          this.similerbooks[i].id = id;
+          this.similerbooks = this.shuffle(this.similerbooks);
+        }
+      }
+    })
+  }) 
+  }
 }

@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { getDatabase, ref, set, child, get } from "firebase/database";
 import { initializeApp } from 'firebase/app';
 import { getAuth, signInWithRedirect , GoogleAuthProvider, signInWithPopup, signOut } from "firebase/auth";
+import { addDoc, getFirestore, collection, setDoc, doc, getDoc } from 'firebase/firestore';
 
 @Component({
   selector: 'login-modal',
@@ -25,10 +25,10 @@ export class LoginModalComponent implements OnInit {
 
   userId = 1;
   user;
+  docUserId;
 
   provider = new GoogleAuthProvider();
   auth = getAuth();
-  dbRef = ref(getDatabase());
 
   constructor() { }
 
@@ -44,25 +44,15 @@ export class LoginModalComponent implements OnInit {
   
   app = initializeApp(this.firebaseConfig);
 
-  database = getDatabase(this.app);
   existingUser = this.auth.currentUser;
+  db = getFirestore(this.app);
 
-  writeUserData(name) {
-    const db = getDatabase();
-    set(ref(db, 'users/' + this.userId), {
-      username: name
-    });
-    const dbRef = ref(getDatabase());
-    get(child(dbRef, `users/${this.userId}`)).then((snapshot) => {
-      if (snapshot.exists()) {
-        console.log(snapshot.val());
-      } else {
-        console.log("No data available");
-      }
-    }).catch((error) => {
-      console.error(error);
-    });
-  }
+  // async writeUserData(name) {
+  //   console.log("test");
+  //   const docRef = await addDoc(collection(this.db, "users"), {      
+  //     username: name
+  //   });
+  // }
 
   ngOnInit(): void {}
 
@@ -93,24 +83,23 @@ export class LoginModalComponent implements OnInit {
     // this.userId++;
     // this.writeUserData(this.username, this.password)
     signInWithPopup(this.auth, this.provider)
-  .then((result) => {
+  .then(async (result) => {
   // This gives you a Google Access Token. You can use it to access the Google API.
   const credential = GoogleAuthProvider.credentialFromResult(result);
   const token = credential.accessToken;
   // The signed-in user info.
   this.user = result.user;
   this.userId = this.user.uid;
-  console.log(this.user);
-  get(child(this.dbRef, `users/${this.userId}`)).then((snapshot) => {
-    if (snapshot.exists()) {
-      console.log(snapshot.val());
-    } else {
-      this.writeUserData(this.user.displayName);
-    }
-  }).catch((error) => {
-    console.error(error);
-  });
-  
+  this.docUserId = this.userId;
+  const logedIn = doc(this.db, "users", this.docUserId);
+  const docSnap = await getDoc(logedIn);
+  if (docSnap.exists()) {
+    console.log("logged in");
+  }  else {
+    const docRef = await setDoc(doc(this.db, "users", this.docUserId), {      
+      username: this.user.displayName
+    });
+  }
   // ...
   }).catch((error) => {
   // Handle Errors here.

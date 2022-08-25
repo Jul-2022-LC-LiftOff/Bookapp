@@ -1,2 +1,6 @@
 <page-header></page-header>
-<a>test</a>
+<div *ngFor="let book of books">
+    <div>
+        <img routerLinkActive="active" routerLink="/book/{{book.id}}" src="{{ book.imageLinks.thumbnail }}"/>
+    </div>
+</div>
