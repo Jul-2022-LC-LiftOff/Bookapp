@@ -4,7 +4,8 @@ export class User {
     id: number
     username: string
     password: string
-    books: { favorites: [Book], saved: [Book] }
+    library: Book[]
+    // books: { favorites: [Book], saved: [Book] }
     // Likely more properties
 
 }
