@@ -19,6 +19,7 @@ const routes: Routes = [
   { path: 'book/:id', component: BookReviewComponent},
   { path: 'list', component: ListComponent},
   { path: 'home', component: BookDisplayPageComponent },
+  { path: 'user', component: UserPageComponent },
   { path: '', redirectTo: '/home', pathMatch: 'full' },
 ];
 
