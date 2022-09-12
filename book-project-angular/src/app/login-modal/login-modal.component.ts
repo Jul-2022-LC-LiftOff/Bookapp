@@ -17,8 +17,8 @@ export class LoginModalComponent implements OnInit {
   signedIn: boolean;
 
   // temporary credentials:
-  password: string = "testpassword"
-  username: string = "testname"
+  // password: string = "testpassword"
+  // username: string = "testname"
 
   //display controls for validation:
   invalidPassword: boolean;
@@ -76,6 +76,7 @@ export class LoginModalComponent implements OnInit {
         if (docSnap.exists()) {
           console.log("logged in");
           this.signedIn = true
+          this.loggedIn.emit(true)
         } else {
           const docRef = await setDoc(doc(this.db, "users", this.docUserId), {
             username: this.user.displayName
@@ -92,6 +93,7 @@ export class LoginModalComponent implements OnInit {
         const credential = GoogleAuthProvider.credentialFromError(error);
         // ...
       });
+
   }
 
   onClickSignout() {
@@ -99,6 +101,7 @@ export class LoginModalComponent implements OnInit {
       // Sign-out successful.
       console.log("signed out");
       this.signedIn = false
+      this.loggedIn.emit(false)
     }).catch((error) => {
       // An error happened.
     });
