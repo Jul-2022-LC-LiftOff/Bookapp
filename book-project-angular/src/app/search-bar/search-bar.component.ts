@@ -1,5 +1,7 @@
+import { importType } from '@angular/compiler/src/output/output_ast';
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Book } from '../data/book';
+import { currentbooks } from '../data/currentbook';
 
 @Component({
   selector: 'search-bar',
@@ -12,6 +14,7 @@ export class SearchBarComponent implements OnInit {
   books: Array<Book> = []
   constructor() { }
 
+  searchAll : Book []=currentbooks
   ngOnInit(): void {
   }
 
@@ -26,10 +29,13 @@ export class SearchBarComponent implements OnInit {
         if (result.items.length > 0) {
           for (let i = 0; i < result.items.length; i++) {
             let data = result.items[i].volumeInfo
-            // console.log(data)
+             console.log(data)
             this.books[i] = data
+            currentbooks.push(data)
           }
-          this.emitBooks.emit(this.books)
+         // this.emitBooks.emit(this.books)
+         //this.searchAll=this.books
+         console.log(currentbooks)
         } else {
           console.log("Nothing to return.")
         }
