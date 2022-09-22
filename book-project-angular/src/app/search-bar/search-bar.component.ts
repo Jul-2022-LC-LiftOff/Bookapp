@@ -2,6 +2,7 @@ import { importType } from '@angular/compiler/src/output/output_ast';
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Book } from '../data/book';
 import { currentbooks } from '../data/currentbook';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'search-bar',
@@ -12,7 +13,7 @@ export class SearchBarComponent implements OnInit {
 
   @Output() emitBooks = new EventEmitter<Array<Book>>()
   books: Array<Book> = []
-  constructor() { }
+  constructor(private Router: Router) { }
 
   searchAll : Book []=currentbooks
   ngOnInit(): void {
@@ -37,7 +38,8 @@ export class SearchBarComponent implements OnInit {
           }
          // this.emitBooks.emit(this.books)
          //this.searchAll=this.books
-         console.log(currentbooks)
+        //  console.log(currentbooks)
+        this.Router.navigate(['/home']);
         } else {
           console.log("Nothing to return.")
         }
