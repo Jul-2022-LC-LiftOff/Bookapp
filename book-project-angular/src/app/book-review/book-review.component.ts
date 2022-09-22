@@ -8,7 +8,7 @@ import { addDoc, getFirestore, collection, getDocs, doc, getDoc, setDoc, updateD
 @Component({
   selector: 'app-book-review',
   templateUrl: './book-review.component.html',
-  styleUrls: ['./book-review.component.scss']
+  styleUrls: ['./book-review.component.css']
 })
 export class BookReviewComponent implements OnInit {
 

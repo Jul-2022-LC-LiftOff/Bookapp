@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Book } from '../data/book';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
+import { currentbooks } from '../data/currentbook';
 
 @Component({
   selector: 'book-display-page',
@@ -9,7 +10,7 @@ import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 })
 export class BookDisplayPageComponent implements OnInit {
 
-  books: Array<Book> = [];
+  books: Array<Book> = currentbooks;
 
   constructor() { }
 
