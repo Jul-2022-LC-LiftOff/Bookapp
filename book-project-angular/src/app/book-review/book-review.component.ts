@@ -8,7 +8,7 @@ import { addDoc, getFirestore, collection, getDocs, doc, getDoc, setDoc, updateD
 @Component({
   selector: 'app-book-review',
   templateUrl: './book-review.component.html',
-  styleUrls: ['./book-review.component.css']
+  styleUrls: ['./book-review.component.scss']
 })
 export class BookReviewComponent implements OnInit {
 
@@ -78,7 +78,6 @@ export class BookReviewComponent implements OnInit {
           this.books[0] = result.volumeInfo
           this.searchTerm = result.volumeInfo.authors
           if (this.books[0].imageLinks.medium)
-          console.log(this.books[0].imageLinks.medium);
     fetch(`https://www.googleapis.com/books/v1/volumes?q=${this.searchTerm}&key=${this.key}`)
     .then(response => response.json())
     .then(result => {
