@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Book } from '../data/book';
+
 @Component({
   selector: 'page-header',
   templateUrl: './page-header.component.html',

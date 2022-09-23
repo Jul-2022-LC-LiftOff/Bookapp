@@ -1,35 +1,8 @@
 <page-header></page-header>
-<!-- <section>
-  <form
-    #bookSearch="ngForm"
-    action="submit"
-    (ngSubmit)="getBook(bookSearch.value)"
-  >
-    <div class="field">
-      <label class="label">Search</label>
-      <div class="control">
-        <input
-          class="input"
-          type="text"
-          placeholder="Search"
-          name="searchTerm"
-          ngModel
-        />
-      </div>
-    </div>
-    <div class="field has-text-centered">
-      <div class="control">
-        <button class="button is-rounded" type="submit" value="submit">
-          Search
-        </button>
-      </div>
-    </div>
-  </form>
-</section> -->
 
 <div *ngFor="let book of books" class="card">
   <header class="card-header">
-    <h1 class="card-title is-centered">{{ book.title }}</h1>
+    <h1 class="card-header-title is-centered">{{ book.title }}</h1>
   </header>
   <div class="card-content">
     <div class="content is-small has-text-left">
@@ -85,10 +58,10 @@
 </div>
 
 <div *ngIf="books.length < 1">
-  <h1 class="title is-centered">New York Times Bestsellers</h1>
+  <h1 class="title is-centered">Current New York Times Bestsellers</h1>
   <div *ngFor="let book of bestsellers" class="card">
     <header class="card-header">
-      <h1 class="card-title is-centered">{{ book.title }}</h1>
+      <h1 class="card-header-title is-centered">{{ book.title }}</h1>
     </header>
     <div class="card-content">
       <div class="content is-small has-text-left">
@@ -115,10 +88,6 @@
               <b>Published Date: </b>
               <span>{{ book.publishedDate }}</span>
             </p>
-            <!-- <p>
-            <b>Description: </b>
-            <span>{{ book.description }}</span>
-          </p> -->
             <p>
               <b>Pages: </b>
               <span>{{ book.pageCount }}</span>
@@ -133,7 +102,7 @@
             </p>
           </div>
           <div class="column is-one-third">
-            <p>
+            <p class="block">
               <b>Description: </b>
               <span>{{ book.description }}</span>
             </p>

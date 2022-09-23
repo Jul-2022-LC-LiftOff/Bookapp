@@ -83,8 +83,5 @@ export class BookDisplayPageComponent implements OnInit {
       })
   }
 
-  getBestSellers(search) {
-
-  }
 }
 
