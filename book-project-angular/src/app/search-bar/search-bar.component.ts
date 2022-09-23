@@ -28,10 +28,11 @@ export class SearchBarComponent implements OnInit {
       .then(result => {
         // console.log(result)
         if (result.items.length > 0) {
+          this.books = [];
           for (let i = 0; i < result.items.length; i++) {
             let data = result.items[i].volumeInfo
             let id = result.items[i].id;
-             console.log(data)
+            //  console.log(data)
             this.books[i] = data
             this.books[i].id = id;
             currentbooks.push(data)
