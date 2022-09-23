@@ -1,15 +1,17 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, OnChanges, SimpleChanges } from '@angular/core';
 import { initializeApp } from 'firebase/app';
 import { getAuth, signInWithRedirect, GoogleAuthProvider, signInWithPopup, signOut } from "firebase/auth";
 import { addDoc, getFirestore, collection, setDoc, doc, getDoc } from 'firebase/firestore';
+import { currentUser } from '../data/userData';
 
 @Component({
   selector: 'login-modal',
   templateUrl: './login-modal.component.html',
   styleUrls: ['./login-modal.component.scss']
 })
-export class LoginModalComponent implements OnInit {
+export class LoginModalComponent implements OnInit, OnChanges {
 
+  @Input() logoutClicked: boolean = false;
   @Input() loginClicked: boolean;
   @Output() closeModal = new EventEmitter<boolean>()
   @Output() loggedIn = new EventEmitter<boolean>()
@@ -69,6 +71,8 @@ export class LoginModalComponent implements OnInit {
         const token = credential.accessToken;
         // The signed-in user info.
         this.user = result.user;
+        currentUser['name'] = this.user.displayName
+        currentUser['image'] = this.user.imageURL
         this.userId = this.user.uid;
         this.docUserId = this.userId;
         const logedIn = doc(this.db, "users", this.docUserId);
@@ -102,8 +106,16 @@ export class LoginModalComponent implements OnInit {
       console.log("signed out");
       this.signedIn = false
       this.loggedIn.emit(false)
+      this.onCloseModal()
     }).catch((error) => {
       // An error happened.
     });
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (this.logoutClicked == true) {
+      this.onClickSignout()
+      this.logoutClicked = false
+    }
   }
 }
