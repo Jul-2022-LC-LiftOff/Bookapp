@@ -1,41 +1,19 @@
 <page-header></page-header>
-<!-- <section>
-  <form
-    #bookSearch="ngForm"
-    action="submit"
-    (ngSubmit)="getBook(bookSearch.value)"
-  >
-    <div class="field">
-      <label class="label">Search</label>
-      <div class="control">
-        <input
-          class="input"
-          type="text"
-          placeholder="Search"
-          name="searchTerm"
-          ngModel
-        />
-      </div>
-    </div>
-    <div class="field has-text-centered">
-      <div class="control">
-        <button class="button is-rounded" type="submit" value="submit">
-          Search
-        </button>
-      </div>
-    </div>
-  </form>
-</section> -->
 
 <div *ngFor="let book of books" class="card">
   <header class="card-header">
-    <h1 class="card-title is-centered">{{ book.title }}</h1>
+    <h1 class="card-header-title is-centered">{{ book.title }}</h1>
   </header>
   <div class="card-content">
     <div class="content is-small has-text-left">
       <div class="columns">
         <div class="column is-one-third">
-          <img routerLinkActive="active" routerLink="/book/{{book.id}}" src="{{ book.imageLinks.thumbnail }}" alt="thumbnail" />
+          <img
+            routerLinkActive="active"
+            routerLink="/book/{{ book.id }}"
+            src="{{ book.imageLinks.thumbnail }}"
+            alt="thumbnail"
+          />
         </div>
         <div class="column is-one-third">
           <p>
@@ -73,6 +51,62 @@
             <b>Description: </b>
             <span>{{ book.description }}</span>
           </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="books.length < 1">
+  <h1 class="title is-centered">Current New York Times Bestsellers</h1>
+  <div *ngFor="let book of bestsellers" class="card">
+    <header class="card-header">
+      <h1 class="card-header-title is-centered">{{ book.title }}</h1>
+    </header>
+    <div class="card-content">
+      <div class="content is-small has-text-left">
+        <div class="columns">
+          <div class="column is-one-third">
+            <img
+              routerLinkActive="active"
+              routerLink="/book/{{ book.id }}"
+              src="{{ book.imageLinks.thumbnail }}"
+              alt="thumbnail"
+            />
+          </div>
+          <div class="column is-one-third">
+            <p>
+              <b>Author: </b>
+              <span>{{ book.authors }}</span>
+            </p>
+            <p>
+              <b>Publisher: </b>
+              <span>{{ book.publisher }}</span>
+              <span>test</span>
+            </p>
+            <p>
+              <b>Published Date: </b>
+              <span>{{ book.publishedDate }}</span>
+            </p>
+            <p>
+              <b>Pages: </b>
+              <span>{{ book.pageCount }}</span>
+            </p>
+            <p>
+              <b>Average Rating: </b>
+              <span>{{ book.averageRating }}</span>
+            </p>
+            <p>
+              <b>Rating Count: </b>
+              <span>{{ book.ratingsCount }}</span>
+            </p>
+          </div>
+          <div class="column is-one-third">
+            <p class="block">
+              <b>Description: </b>
+              <span>{{ book.description }}</span>
+            </p>
+          </div>
         </div>
       </div>
     </div>

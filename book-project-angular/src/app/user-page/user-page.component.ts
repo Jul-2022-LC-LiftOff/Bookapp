@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { initializeApp } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
 import { doc, getDoc, getFirestore, setDoc } from 'firebase/firestore';
+import { currentUser } from '../data/userData';
 
 @Component({
   selector: 'app-user-page',
@@ -20,18 +21,23 @@ export class UserPageComponent implements OnInit {
   //   appId: "1:1019367376762:web:c759cb22843116796df8c3"
   // };
 
-  
+
   // key = "AIzaSyAukQn7svQJN1ZruG8UK26I-LKr3lcEbGk";
   // app = initializeApp(this.firebaseConfig);
   // auth = getAuth();
   // db = getFirestore(this.app);
   // user = this.auth.currentUser;
   // userId = this.user.uid;
- 
 
-  constructor() { }
+  username: string
+  userImage: string
+  constructor() {
+    this.username = currentUser.name
+    this.userImage = currentUser.image
+  }
 
   ngOnInit(): void {
   }
+
 
 }

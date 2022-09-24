@@ -2,9 +2,13 @@
   <div class="hero-head">
     <nav class="navbar">
       <div class="navbar-brand">
-        <a class="navbar-item">
-      <!--    <img src="" alt="Logo" /> -->
-          <img src="https://toppng.com/uploads/preview/this-free-icons-design-of-books-opened-11550253335r5kvxff5ql.png" alt="Logo"/>
+        <a class="" href="/home">
+          <!--    <img src="" alt="Logo" /> -->
+          <img
+            class="image"
+            src="https://toppng.com/uploads/preview/this-free-icons-design-of-books-opened-11550253335r5kvxff5ql.png"
+            alt="Logo"
+          />
         </a>
         <span class="navbar-burger" data-target="navbarMenuHeroB">
           <span></span>
@@ -17,9 +21,10 @@
           <a *ngIf="!loggedIn" class="navbar-item" (click)="onLoginClicked()"
             >Log In</a
           >
-          <!-- <span class="navbar-item"><search-bar></search-bar></span> -->
-
-          <a *ngIf="loggedIn" class="navbar-item">My books</a>
+          <span *ngIf="loggedIn" class="navbar-end">
+            <a class="navbar-item">My books</a>
+            <a class="navbar-item" (click)="logout()">Logout</a>
+          </span>
         </div>
       </div>
     </nav>
@@ -38,7 +43,7 @@
             ><search-bar (emitBooks)="emitSearchedBooks($event)"></search-bar
           ></span>
         </li>
- <!--       <li>
+        <!--       <li>
           <a>Most Popular</a>
         </li>
       -->
@@ -49,11 +54,11 @@
           <a href="/user">My Account</a>
         </li>
         <li>
-          <a routerLink="/list">My library</a>
+          <a routerLink="/list" disabled="true">My library</a>
         </li>
-        <li>
+        <!-- <li>
           <a href="">Link five</a>
-        </li>
+        </li> -->
       </ul>
     </div>
   </div>
@@ -63,4 +68,5 @@
   [loginClicked]="loginClicked"
   (closeModal)="closeModal($event)"
   (loggedIn)="validUser($event)"
+  [logoutClicked]="logoutClicked"
 ></login-modal>
