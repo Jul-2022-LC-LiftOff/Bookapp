@@ -8,7 +8,7 @@
           <div class="media">
             <div class="media-content">
               <p class="title is-4">My Reviews</p>
-              <p class="subtitle is-6">@username</p>
+              <p class="subtitle is-6"></p>
             </div>
           </div>
 
@@ -39,14 +39,14 @@
               <figure class="image is-64x64">
                 <img
                   class="is-rounded"
-                  src="{{ this.userImage }}"
+                  src="{{ this.auth.currentUser.photoURL }}"
                   alt="Placeholder image"
                 />
               </figure>
             </div>
             <div class="media-content">
-              <p class="title is-4">User's Name</p>
-              <p class="subtitle is-6">{{ this.username }}</p>
+              <p class="title is-4">{{ this.auth.currentUser.displayName }}</p>
+              <p class="subtitle is-6">{{ this.auth.currentUser.email }}</p>
             </div>
           </div>
 
