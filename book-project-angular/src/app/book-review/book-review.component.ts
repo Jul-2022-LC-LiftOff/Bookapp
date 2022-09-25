@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Book } from '../data/book';
 import { Router, ActivatedRoute, ParamMap, RouterLink } from '@angular/router';
-import { getAuth } from "firebase/auth";
+import { getAuth, onAuthStateChanged  } from "firebase/auth";
 import { initializeApp } from 'firebase/app';
 import { addDoc, getFirestore, collection, getDocs, doc, getDoc, setDoc, updateDoc, arrayUnion  } from "firebase/firestore";
 
@@ -29,7 +29,20 @@ export class BookReviewComponent implements OnInit {
   searchTerm;
   key = "AIzaSyAukQn7svQJN1ZruG8UK26I-LKr3lcEbGk";
   
-  constructor(private activatedRoute: ActivatedRoute) { }
+  constructor(private activatedRoute: ActivatedRoute) {
+    const auth = getAuth();
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+      // User is signed in, see docs for a list of available properties
+      // https://firebase.google.com/docs/reference/js/firebase.User
+      const uid = user.uid;
+      // ...
+      } else {
+      // User is signed out
+      // ...
+      }
+    });
+   }
 
   reload(){
     setTimeout(() => {  window.location.reload(); }, 1);
@@ -47,11 +60,14 @@ export class BookReviewComponent implements OnInit {
   
   app = initializeApp(this.firebaseConfig);
 
+
   auth = getAuth();
   user = this.auth.currentUser;
   db = getFirestore(this.app);
   userId = this.user.uid;
   Reviews;
+
+  
 
 
   async writeUserData() {
@@ -81,6 +97,18 @@ export class BookReviewComponent implements OnInit {
   }
 
   async ngOnInit() {
+    const auth = getAuth();
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+      // User is signed in, see docs for a list of available properties
+      // https://firebase.google.com/docs/reference/js/firebase.User
+      const uid = user.uid;
+      // ...
+      } else {
+      // User is signed out
+      // ...
+      }
+    });
     this.bookid = this.activatedRoute.snapshot.paramMap.get('id');
     fetch(`https://www.googleapis.com/books/v1/volumes/${this.bookid}?key=${this.key}`)
     .then(response => response.json())
