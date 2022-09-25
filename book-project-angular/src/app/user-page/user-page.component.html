@@ -1,14 +1,16 @@
 <page-header></page-header>
 
 <div class="container">
-  <div class="columns is-one-third is-offset-7">
-    <div class="column is-one-third">
-      <div class="card">
-        <div class="card-content">
+  <div class="columns">
+    <div class="column is-half">
+      <div class="card" id="reviewCard">
+        <div class="card-content" >
           <div class="media">
             <div class="media-content">
               <p class="title is-4">My Reviews</p>
-              <p class="subtitle is-6">@username</p>
+              <p class="subtitle is-6">
+                
+              </p>
             </div>
           </div>
 
@@ -31,30 +33,30 @@
         </div>
       </div>
     </div>
-    <div class="column is-one-third is-offset-4">
-      <div class="card">
+    <div class="column is-offset-1 ">
+      <div class="card" id="userCard">
         <div class="card-content">
           <div class="media">
             <div class="media-left">
               <figure class="image is-64x64">
                 <img
                   class="is-rounded"
-                  src="{{ this.userImage }}"
+                  src = "{{userImage}}"
                   alt="Placeholder image"
                 />
               </figure>
             </div>
             <div class="media-content">
-              <p class="title is-4">User's Name</p>
-              <p class="subtitle is-6">{{ this.username }}</p>
+               <p class="title is-4">{{ username}}</p>
+              <p class="subtitle is-6">{{ userEmail }}</p> 
             </div>
           </div>
 
           <div class="content">
-            Maybe the user can have an about me section? <a>@bulmaio</a>.
-            <a href="#">#css</a> <a href="#">#responsive</a>
-            <br />
-            <time datetime="2016-1-1">11:09 PM - 1 Jan 2016</time>
+          <p>Verified: {{userVerified}}</p>
+          <p>Account Created: {{userCreationDate}}</p>
+          <p>Last Sign-in: {{userLastSignIn}}</p>
+            
           </div>
         </div>
       </div>
