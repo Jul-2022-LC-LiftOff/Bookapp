@@ -17,8 +17,8 @@ export class BookReviewComponent implements OnInit {
     while (currentIndex != 0) {
       randomIndex = Math.floor(Math.random() * currentIndex);
       currentIndex--;
-      [array[currentIndex], array[randomIndex]] = [
-        array[randomIndex], array[currentIndex]];
+      [array[currentIndex], array[randomIndex]] = 
+      [array[randomIndex], array[currentIndex]];
     }
     return array;
   }  
@@ -52,7 +52,8 @@ export class BookReviewComponent implements OnInit {
   db = getFirestore(this.app);
   userId;
   Reviews;
-
+  htmlToAdd;
+  username;
 
   async writeUserData() {
     const addBook = doc(this.db, "users", this.userId);
@@ -63,8 +64,9 @@ export class BookReviewComponent implements OnInit {
 
   async addReview(text) {
     let reviewText = text.review;
-    let reviewWithQuotes = '"' + text.review + '"' + ` by: ` + this.user.displayName;
-    const addReview = doc(this.db, "users", this.userId);
+    let reviewWithQuotes = '"' + text.review + '"' + ` by: ` + this.username;
+    let IdofBook = this.bookid;
+    const addReview = doc(this.db, "users", this.userId,);
     const reviewReal = doc(this.db, "reviews", this.bookid);
     const docSnap = await getDoc(reviewReal);
     if (docSnap.exists()) {
@@ -73,7 +75,7 @@ export class BookReviewComponent implements OnInit {
       });
     }
     await updateDoc(addReview, {      
-      My_Reviews: arrayUnion(reviewText)
+      IdofBook: arrayUnion(reviewText)
     });
     const addReviewBook = doc(this.db, "reviews", this.bookid);
     await updateDoc(addReviewBook, {      
@@ -89,6 +91,7 @@ export class BookReviewComponent implements OnInit {
     .then(result => {
           this.books[0] = result.volumeInfo
           this.searchTerm = result.volumeInfo.authors
+          this.htmlToAdd = this.books[0].description;
           // if (this.books[0].imageLinks.medium)
     fetch(`https://www.googleapis.com/books/v1/volumes?q=${this.searchTerm}&key=${this.key}`)
     .then(response => response.json())
@@ -123,10 +126,7 @@ export class BookReviewComponent implements OnInit {
     //if the user is signed in
     // https://firebase.google.com/docs/reference/js/firebase.User
     this.userId = this.user.uid;
-      
-
-    
-    
+    this.username = user.displayName;
     } else {
     // User is signed out
     console.log("user is signed out")

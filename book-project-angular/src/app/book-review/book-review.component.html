@@ -52,7 +52,7 @@
       >Description:
     </b>
     <p style="display: flex; justify-content: center; align-items: center">
-      <span>{{ book.description }}</span>
+      <span class="addHTML" [innerHtml]="htmlToAdd"></span>
     </p>
   </div>
   <div class="column is-one-third"><br>
@@ -62,7 +62,6 @@
     (ngSubmit)="addReview(reviewText.value)"
     class="field has-addons"
     >
-    
       <textarea name="review" cols="60" rows="5" ngModel></textarea><br>
       <button class="button is-info is-small" type="submit" value="submit">
         add review
@@ -70,7 +69,7 @@
     </form>
     <div *ngFor="let Review of Reviews">
       <div>
-          <p class="card">{{Review}}</p>
+          <p class="card">{{Review}}</p><br><br>
       </div>
   </div>
 </div>
