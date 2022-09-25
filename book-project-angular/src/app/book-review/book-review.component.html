@@ -50,6 +50,22 @@
     </div>
     <div class="column is-one-third">
         <h1>User reviews will go here</h1>
+        <form 
+        #reviewText="ngForm"
+        action="submit"
+        (ngSubmit)="addReview(reviewText.value)"
+        class="field has-addons"
+        >
+          <textarea name="review" cols="60" rows="5" ngModel></textarea><br>
+          <button class="button is-info is-small" type="submit" value="submit">
+            add review
+          </button>
+        </form>
+        <div *ngFor="let Review of Reviews">
+          <div>
+              <p>{{Review}}</p>
+          </div>
+      </div>
     </div>
     <div class="column is-one-third">
         <div>
