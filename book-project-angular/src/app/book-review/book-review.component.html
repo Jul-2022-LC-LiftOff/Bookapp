@@ -56,19 +56,21 @@
     </p>
   </div>
   <div class="column is-one-third"><br>
-    <form class="card"
+    <div>
+    <form
     #reviewText="ngForm"
     action="submit"
-    (ngSubmit)="addReview(reviewText.value)"
-    class="field has-addons"
-    >
-      <textarea name="review" cols="60" rows="5" ngModel></textarea><br>
-      <button class="button is-info is-small" type="submit" value="submit">
+    (ngSubmit)="addReview(reviewText.value)">
+      <textarea name="review" cols="60" rows="5" class="card"  ngModel></textarea><br>
+      <div >
+      <button class="button is-info is-small card-footer-item" type="submit" value="submit">
         add review
       </button>
+    </div>
     </form>
+  </div>
     <div *ngFor="let Review of Reviews">
-      <div>
+      <div><br><br>
           <p class="card">{{Review}}</p><br><br>
       </div>
   </div>
