@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { initializeApp } from 'firebase/app';
-import { getAuth } from 'firebase/auth';
+import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { doc, getDoc, getFirestore, setDoc } from 'firebase/firestore';
 import { currentUser } from '../data/userData';
+import { Book } from '../data/book';
 
 @Component({
   selector: 'app-user-page',
@@ -27,19 +28,42 @@ export class UserPageComponent implements OnInit {
   auth = getAuth();
   db = getFirestore(this.app);
   user = this.auth.currentUser;
-  //userId = user.uid;
+  userId; //= this.user.uid;
+  
 
   username: string
   userImage: string
+  userEmail: string
+  userVerified: boolean
   constructor() {
     this.username = currentUser.name
     this.userImage = currentUser.image
+    
   }
+
+
+  async ngOnInit(): Promise<void> {
+
+const auth = getAuth();
+onAuthStateChanged(auth, (user) => {
+  if (user) {
+    //if the user is signed in
+    // https://firebase.google.com/docs/reference/js/firebase.User
+    const uid = user.uid;
+      
+    this.username = user.displayName;
+    this.userImage = this.auth.currentUser.photoURL;
+    this.userEmail = this.auth.currentUser.email
+    this.userVerified = this.auth.currentUser.emailVerified
+    
+  } else {
+    // User is signed out
+    console.log("user is signed out")
+  }
+   });
   
-  ngOnInit(): void {
-    // console.log(this.auth)
-    // console.log(this.auth.currentUser)
   }
-
-
 }
+
+
+

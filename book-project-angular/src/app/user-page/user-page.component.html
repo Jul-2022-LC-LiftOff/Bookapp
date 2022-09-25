@@ -39,19 +39,20 @@
               <figure class="image is-64x64">
                 <img
                   class="is-rounded"
-                  src="{{ this.auth.currentUser.photoURL }}"
+                  src = "{{userImage}}"
                   alt="Placeholder image"
                 />
               </figure>
             </div>
             <div class="media-content">
-              <p class="title is-4">{{ this.auth.currentUser.displayName }}</p>
-              <p class="subtitle is-6">{{ this.auth.currentUser.email }}</p>
+               <p class="title is-4">{{ username}}</p>
+              <p class="subtitle is-6">{{ userEmail }}</p> 
             </div>
           </div>
 
           <div class="content">
-            Maybe the user can have an about me section? <a>@bulmaio</a>.
+          <p>Verified: {{userVerified}}</p>
+            <a>@bulmaio</a>.
             <a href="#">#css</a> <a href="#">#responsive</a>
             <br />
             <time datetime="2016-1-1">11:09 PM - 1 Jan 2016</time>
