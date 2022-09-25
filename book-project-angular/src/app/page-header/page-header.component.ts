@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Book } from '../data/book';
+
 @Component({
   selector: 'page-header',
   templateUrl: './page-header.component.html',
@@ -8,9 +9,11 @@ import { Book } from '../data/book';
 export class PageHeaderComponent implements OnInit {
 
   @Output() emitBooks = new EventEmitter<any>();
+  @Output() emitLogout = new EventEmitter<any>();
   books: Array<Book>
   loginClicked: boolean;
   loggedIn: boolean;
+  logoutClicked: boolean
   constructor() { }
 
   ngOnInit(): void {
@@ -26,10 +29,16 @@ export class PageHeaderComponent implements OnInit {
 
   validUser(valid: boolean) {
     this.loggedIn = valid
+    this.closeModal(!valid)
   }
 
   emitSearchedBooks(books: Array<any>) {
     console.log(books)
     this.emitBooks.emit(books)
   }
+
+  logout() {
+    this.logoutClicked = true
+  }
+
 }

@@ -1,83 +1,108 @@
 <page-header></page-header>
 
-  <div *ngFor="let book of books" class="columns">
-    <div class="column is-one-third">
-        <div style="display:flex;justify-content:center;align-items:center;">
-            <img src="{{ book.imageLinks.thumbnail }}" alt="medium">
-        </div>
-        <p style="display:flex;justify-content:center;align-items:center;">
-          <b>Title: </b>
-          <span>{{ book.title }}</span>
-        </p>
-        <button  (click)="writeUserData()">add book to library</button>
-        <div style="display:flex;justify-content:center;align-items:center;">
-            <span>{{ book.averageRating }}/5 out of {{ book.ratingsCount }} ratings</span>
-        </div>
-        <div style="display:flex;justify-content:center;align-items:center;">
-            <a href="{{  book.previewLink }}">preview</a>
-        </div>
-        <div style="display:flex;justify-content:center;align-items:center;">
-            <a href="{{  book.infoLink }}">info</a>
-        </div>
-        <p style="display:flex;justify-content:center;align-items:center;">
-            <b>Author: </b>
-            <span>{{ book.authors }}</span>
-          </p>
-          <p style="display:flex;justify-content:center;align-items:center;">
-            <b>Publisher: </b>
-            <span>{{ book.publisher }}</span>
-          </p>
-          <p style="display:flex;justify-content:center;align-items:center;">
-            <b>Published Date: </b>
-            <span>{{ book.publishedDate }}</span>
-          </p>
-          <p style="display:flex;justify-content:center;align-items:center;">
-            <b>Pages: </b>
-            <span>{{ book.pageCount }}</span>
-          </p>
-          <p style="display:flex;justify-content:center;align-items:center;">
-            <b>Average Rating: </b>
-            <span>{{ book.averageRating }}</span>
-          </p>
-          <p style="display:flex;justify-content:center;align-items:center;">
-            <b>Catagories: </b>
-            <span>{{ book.catagories }}</span>
-          </p>
-          <b style="display:flex;justify-content:center;align-items:center;">Description: </b>
-        <p style="display:flex;justify-content:center;align-items:center;">
-            <span>{{ book.description }}</span>
-        </p>
+<div *ngFor="let book of books" class="columns">
+  <div class="column is-one-third has-text-centered">
+    <div
+      class="img"
+      style="display: flex; justify-content: center; align-items: center"
+    >
+      <img src="{{ book.imageLinks.thumbnail }}" alt="medium" />
     </div>
-    <div class="column is-one-third">
-        <h1>User reviews will go here</h1>
-        <form 
-        #reviewText="ngForm"
-        action="submit"
-        (ngSubmit)="addReview(reviewText.value)"
-        class="field has-addons"
-        >
-          <textarea name="review" cols="60" rows="5" ngModel></textarea><br>
-          <button class="button is-info is-small" type="submit" value="submit">
-            add review
-          </button>
-        </form>
-        <div *ngFor="let Review of Reviews">
-          <div>
-              <p>{{Review}}</p>
-          </div>
+    <p style="display: flex; justify-content: center; align-items: center">
+      <b>Title: </b>
+      <span>{{ book.title }}</span>
+    </p>
+    <button (click)="writeUserData()">add book to library</button>
+    <div style="display: flex; justify-content: center; align-items: center">
+      <span
+        >{{ book.averageRating }}/5 out of {{ book.ratingsCount }} ratings</span
+      >
+    </div>
+    <div style="display: flex; justify-content: center; align-items: center">
+      <a href="{{ book.previewLink }}">preview</a>
+    </div>
+    <div style="display: flex; justify-content: center; align-items: center">
+      <a href="{{ book.infoLink }}">info</a>
+    </div>
+    <p style="display: flex; justify-content: center; align-items: center">
+      <b>Author: </b>
+      <span>{{ book.authors }}</span>
+    </p>
+    <p style="display: flex; justify-content: center; align-items: center">
+      <b>Publisher: </b>
+      <span>{{ book.publisher }}</span>
+    </p>
+    <p style="display: flex; justify-content: center; align-items: center">
+      <b>Published Date: </b>
+      <span>{{ book.publishedDate }}</span>
+    </p>
+    <p style="display: flex; justify-content: center; align-items: center">
+      <b>Pages: </b>
+      <span>{{ book.pageCount }}</span>
+    </p>
+    <p style="display: flex; justify-content: center; align-items: center">
+      <b>Average Rating: </b>
+      <span>{{ book.averageRating }}</span>
+    </p>
+    <p style="display: flex; justify-content: center; align-items: center">
+      <b>Catagories: </b>
+      <span>{{ book.catagories }}</span>
+    </p>
+    <b style="display: flex; justify-content: center; align-items: center"
+      >Description:
+    </b>
+    <p style="display: flex; justify-content: center; align-items: center">
+      <span>{{ book.description }}</span>
+    </p>
+  </div>
+  <div class="column is-one-third">
+    <h1>User reviews will go here</h1>
+    <form 
+    #reviewText="ngForm"
+    action="submit"
+    (ngSubmit)="addReview(reviewText.value)"
+    class="field has-addons"
+    >
+      <textarea name="review" cols="60" rows="5" ngModel></textarea><br>
+      <button class="button is-info is-small" type="submit" value="submit">
+        add review
+      </button>
+    </form>
+    <div *ngFor="let Review of Reviews">
+      <div>
+          <p>{{Review}}</p>
       </div>
+  </div>
+</div>
+  <div class="column is-one-third">
+    <div>
+      <h1 class="card-header-title is-centered has-text-centered">
+        Similar books you may like:
+      </h1>
     </div>
-    <div class="column is-one-third">
-        <div>
-            <h1 class="card-title is-centered">similer books you man like</h1>
-        </div>
-        <div *ngFor="let similerbook of similerbooks">
-          <header class="card-header">
-            <h1 class="card-title is-centered">{{ similerbook.title }}</h1>
-          </header>
-          <img routerLinkActive="active" routerLink="/book/{{similerbook.id}}" src="{{ similerbook.imageLinks.thumbnail }}" alt="thumbnail" (click)="reload()"/>
-        </div>
+    <div *ngFor="let similerbook of similerbooks" class="">
+      <header class="card-header">
+        <h1 class="card-header-title is-centered">{{ similerbook.title }}</h1>
+      </header>
+      <img
+        routerLinkActive="active"
+        routerLink="/book/{{ similerbook.id }}"
+        src="{{ similerbook.imageLinks.thumbnail }}"
+        alt="thumbnail"
+        (click)="reload()"
+      />
+      <p>
+        <b>Author: </b>
+        <span>{{ similerbook.authors }}</span>
+      </p>
+      <p>
+        <b>Pages: </b>
+        <span>{{ similerbook.pageCount }}</span>
+      </p>
+      <p>
+        <b>Published Date: </b>
+        <span>{{ similerbook.publishedDate }}</span>
+      </p>
     </div>
   </div>
-
-
+</div>
