@@ -52,12 +52,11 @@
       >Description:
     </b>
     <p style="display: flex; justify-content: center; align-items: center">
-      <span>{{ book.description }}</span>
+      <span class="addHTML" [innerHtml]="htmlToAdd"></span>
     </p>
   </div>
-  <div class="column is-one-third">
-    <h1>User reviews will go here</h1>
-    <form 
+  <div class="column is-one-third"><br>
+    <form class="card"
     #reviewText="ngForm"
     action="submit"
     (ngSubmit)="addReview(reviewText.value)"
@@ -70,7 +69,7 @@
     </form>
     <div *ngFor="let Review of Reviews">
       <div>
-          <p>{{Review}}</p>
+          <p class="card">{{Review}}</p><br><br>
       </div>
   </div>
 </div>
@@ -85,6 +84,7 @@
         <h1 class="card-header-title is-centered">{{ similerbook.title }}</h1>
       </header>
       <img
+        class="image"
         routerLinkActive="active"
         routerLink="/book/{{ similerbook.id }}"
         src="{{ similerbook.imageLinks.thumbnail }}"

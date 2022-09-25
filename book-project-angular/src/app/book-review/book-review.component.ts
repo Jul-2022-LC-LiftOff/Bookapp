@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Book } from '../data/book';
 import { Router, ActivatedRoute, ParamMap, RouterLink } from '@angular/router';
-import { getAuth } from "firebase/auth";
+import { getAuth, onAuthStateChanged  } from "firebase/auth";
 import { initializeApp } from 'firebase/app';
 import { addDoc, getFirestore, collection, getDocs, doc, getDoc, setDoc, updateDoc, arrayUnion  } from "firebase/firestore";
 
@@ -17,8 +17,8 @@ export class BookReviewComponent implements OnInit {
     while (currentIndex != 0) {
       randomIndex = Math.floor(Math.random() * currentIndex);
       currentIndex--;
-      [array[currentIndex], array[randomIndex]] = [
-        array[randomIndex], array[currentIndex]];
+      [array[currentIndex], array[randomIndex]] = 
+      [array[randomIndex], array[currentIndex]];
     }
     return array;
   }  
@@ -50,9 +50,10 @@ export class BookReviewComponent implements OnInit {
   auth = getAuth();
   user = this.auth.currentUser;
   db = getFirestore(this.app);
-  userId = this.user.uid;
+  userId;
   Reviews;
-
+  htmlToAdd;
+  username;
 
   async writeUserData() {
     const addBook = doc(this.db, "users", this.userId);
@@ -63,7 +64,14 @@ export class BookReviewComponent implements OnInit {
 
   async addReview(text) {
     let reviewText = text.review;
-    const addReview = doc(this.db, "users", this.userId);
+    let reviewObj = {
+      bookid: this.bookid,
+      review: reviewText
+    };
+    console.log(reviewObj);
+    let reviewWithQuotes = '"' + text.review + '"' + ` by: ` + this.username;
+    let IdofBook = this.bookid;
+    const addReview = doc(this.db, "users", this.userId,);
     const reviewReal = doc(this.db, "reviews", this.bookid);
     const docSnap = await getDoc(reviewReal);
     if (docSnap.exists()) {
@@ -72,12 +80,13 @@ export class BookReviewComponent implements OnInit {
       });
     }
     await updateDoc(addReview, {      
-      My_Reviews: arrayUnion(reviewText)
+      My_Reviews: arrayUnion(reviewObj)
     });
     const addReviewBook = doc(this.db, "reviews", this.bookid);
     await updateDoc(addReviewBook, {      
-      Reviews: arrayUnion(reviewText)
+      Reviews: arrayUnion(reviewWithQuotes)
     });
+    window.location.reload();
   }
 
   async ngOnInit() {
@@ -87,6 +96,7 @@ export class BookReviewComponent implements OnInit {
     .then(result => {
           this.books[0] = result.volumeInfo
           this.searchTerm = result.volumeInfo.authors
+          this.htmlToAdd = this.books[0].description;
           // if (this.books[0].imageLinks.medium)
     fetch(`https://www.googleapis.com/books/v1/volumes?q=${this.searchTerm}&key=${this.key}`)
     .then(response => response.json())
@@ -97,13 +107,35 @@ export class BookReviewComponent implements OnInit {
           let id = result.items[i].id;
           this.similerbooks[i] = data;
           this.similerbooks[i].id = id;
-          this.similerbooks = this.shuffle(this.similerbooks);
+          if (this.similerbooks[i].imageLinks == undefined) {
+            this.similerbooks[i].imageLinks = {
+              smallThumbnail: "https://toppng.com/uploads/preview/this-free-icons-design-of-books-opened-11550253335r5kvxff5ql.png",
+              thumbnail: "https://toppng.com/uploads/preview/this-free-icons-design-of-books-opened-11550253335r5kvxff5ql.png",
+              small: "https://toppng.com/uploads/preview/this-free-icons-design-of-books-opened-11550253335r5kvxff5ql.png",
+              medium: "https://toppng.com/uploads/preview/this-free-icons-design-of-books-opened-11550253335r5kvxff5ql.png",
+              large: "https://toppng.com/uploads/preview/this-free-icons-design-of-books-opened-11550253335r5kvxff5ql.png",
+              extraLarge: "https://toppng.com/uploads/preview/this-free-icons-design-of-books-opened-11550253335r5kvxff5ql.png"
+            };
+          }
         }
+        this.similerbooks = this.shuffle(this.similerbooks);
       }
     })
   })
   const docRef = doc(this.db, "reviews", this.bookid);
   const docSnap = await getDoc(docRef);
   this.Reviews = docSnap.data()['Reviews'];
-  }
+  const auth = getAuth();
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+    //if the user is signed in
+    // https://firebase.google.com/docs/reference/js/firebase.User
+    this.userId = this.user.uid;
+    this.username = user.displayName;
+    } else {
+    // User is signed out
+    console.log("user is signed out")
+    }
+    });
+    }
 }
