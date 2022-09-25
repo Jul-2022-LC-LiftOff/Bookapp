@@ -64,6 +64,11 @@ export class BookReviewComponent implements OnInit {
 
   async addReview(text) {
     let reviewText = text.review;
+    let reviewObj = {
+      bookid: this.bookid,
+      review: reviewText
+    };
+    console.log(reviewObj);
     let reviewWithQuotes = '"' + text.review + '"' + ` by: ` + this.username;
     let IdofBook = this.bookid;
     const addReview = doc(this.db, "users", this.userId,);
@@ -75,7 +80,7 @@ export class BookReviewComponent implements OnInit {
       });
     }
     await updateDoc(addReview, {      
-      IdofBook: arrayUnion(reviewText)
+      My_Reviews: arrayUnion(reviewObj)
     });
     const addReviewBook = doc(this.db, "reviews", this.bookid);
     await updateDoc(addReviewBook, {      
