@@ -55,14 +55,15 @@
       <span>{{ book.description }}</span>
     </p>
   </div>
-  <div class="column is-one-third">
+  <div class="column is-one-third"><br>
     <form class="card"
     #reviewText="ngForm"
     action="submit"
     (ngSubmit)="addReview(reviewText.value)"
     class="field has-addons"
     >
-      <textarea name="review" cols="60" rows="5" ngModel></textarea>
+    
+      <textarea name="review" cols="60" rows="5" ngModel></textarea><br>
       <button class="button is-info is-small" type="submit" value="submit">
         add review
       </button>
@@ -84,6 +85,7 @@
         <h1 class="card-header-title is-centered">{{ similerbook.title }}</h1>
       </header>
       <img
+        class="image"
         routerLinkActive="active"
         routerLink="/book/{{ similerbook.id }}"
         src="{{ similerbook.imageLinks.thumbnail }}"

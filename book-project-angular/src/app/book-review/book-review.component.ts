@@ -29,20 +29,7 @@ export class BookReviewComponent implements OnInit {
   searchTerm;
   key = "AIzaSyAukQn7svQJN1ZruG8UK26I-LKr3lcEbGk";
   
-  constructor(private activatedRoute: ActivatedRoute) {
-    const auth = getAuth();
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
-      // User is signed in, see docs for a list of available properties
-      // https://firebase.google.com/docs/reference/js/firebase.User
-      const uid = user.uid;
-      // ...
-      } else {
-      // User is signed out
-      // ...
-      }
-    });
-   }
+  constructor(private activatedRoute: ActivatedRoute) { }
 
   reload(){
     setTimeout(() => {  window.location.reload(); }, 1);
@@ -60,14 +47,11 @@ export class BookReviewComponent implements OnInit {
   
   app = initializeApp(this.firebaseConfig);
 
-
   auth = getAuth();
   user = this.auth.currentUser;
   db = getFirestore(this.app);
-  userId = this.user.uid;
+  userId;
   Reviews;
-
-  
 
 
   async writeUserData() {
@@ -79,6 +63,7 @@ export class BookReviewComponent implements OnInit {
 
   async addReview(text) {
     let reviewText = text.review;
+    let reviewWithQuotes = '"' + text.review + '"' + ` by: ` + this.user.displayName;
     const addReview = doc(this.db, "users", this.userId);
     const reviewReal = doc(this.db, "reviews", this.bookid);
     const docSnap = await getDoc(reviewReal);
@@ -92,23 +77,12 @@ export class BookReviewComponent implements OnInit {
     });
     const addReviewBook = doc(this.db, "reviews", this.bookid);
     await updateDoc(addReviewBook, {      
-      Reviews: arrayUnion(reviewText)
+      Reviews: arrayUnion(reviewWithQuotes)
     });
+    window.location.reload();
   }
 
   async ngOnInit() {
-    const auth = getAuth();
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
-      // User is signed in, see docs for a list of available properties
-      // https://firebase.google.com/docs/reference/js/firebase.User
-      const uid = user.uid;
-      // ...
-      } else {
-      // User is signed out
-      // ...
-      }
-    });
     this.bookid = this.activatedRoute.snapshot.paramMap.get('id');
     fetch(`https://www.googleapis.com/books/v1/volumes/${this.bookid}?key=${this.key}`)
     .then(response => response.json())
@@ -125,13 +99,38 @@ export class BookReviewComponent implements OnInit {
           let id = result.items[i].id;
           this.similerbooks[i] = data;
           this.similerbooks[i].id = id;
-          this.similerbooks = this.shuffle(this.similerbooks);
+          if (this.similerbooks[i].imageLinks == undefined) {
+            this.similerbooks[i].imageLinks = {
+              smallThumbnail: "https://toppng.com/uploads/preview/this-free-icons-design-of-books-opened-11550253335r5kvxff5ql.png",
+              thumbnail: "https://toppng.com/uploads/preview/this-free-icons-design-of-books-opened-11550253335r5kvxff5ql.png",
+              small: "https://toppng.com/uploads/preview/this-free-icons-design-of-books-opened-11550253335r5kvxff5ql.png",
+              medium: "https://toppng.com/uploads/preview/this-free-icons-design-of-books-opened-11550253335r5kvxff5ql.png",
+              large: "https://toppng.com/uploads/preview/this-free-icons-design-of-books-opened-11550253335r5kvxff5ql.png",
+              extraLarge: "https://toppng.com/uploads/preview/this-free-icons-design-of-books-opened-11550253335r5kvxff5ql.png"
+            };
+          }
         }
+        this.similerbooks = this.shuffle(this.similerbooks);
       }
     })
   })
   const docRef = doc(this.db, "reviews", this.bookid);
   const docSnap = await getDoc(docRef);
   this.Reviews = docSnap.data()['Reviews'];
-  }
+  const auth = getAuth();
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+    //if the user is signed in
+    // https://firebase.google.com/docs/reference/js/firebase.User
+    this.userId = this.user.uid;
+      
+
+    
+    
+    } else {
+    // User is signed out
+    console.log("user is signed out")
+    }
+    });
+    }
 }
