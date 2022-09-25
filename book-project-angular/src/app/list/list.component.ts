@@ -45,6 +45,5 @@ export class ListComponent implements OnInit {
             this.books[i].id = result.id;
       })  
     }
-    // console.log(this.books[1].id);
   }
 }

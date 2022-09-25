@@ -51,6 +51,7 @@ export class BookReviewComponent implements OnInit {
   user = this.auth.currentUser;
   db = getFirestore(this.app);
   userId = this.user.uid;
+  Reviews;
 
 
   async writeUserData() {
@@ -60,24 +61,33 @@ export class BookReviewComponent implements OnInit {
     });
   }
 
-  ngOnInit() {    
-    if (this.user) {
-      // User is signed in, see docs for a list of available properties
-      // https://firebase.google.com/docs/reference/js/firebase.User
-      // ...
-      console.log(this.user);
+  async addReview(text) {
+    let reviewText = text.review;
+    const addReview = doc(this.db, "users", this.userId);
+    const reviewReal = doc(this.db, "reviews", this.bookid);
+    const docSnap = await getDoc(reviewReal);
+    if (docSnap.exists()) {
     } else {
-      // No user is signed in.
-      console.log("it goofed")
+      const docRef = await setDoc(doc(this.db, "reviews", this.bookid), {
+      });
     }
+    await updateDoc(addReview, {      
+      My_Reviews: arrayUnion(reviewText)
+    });
+    const addReviewBook = doc(this.db, "reviews", this.bookid);
+    await updateDoc(addReviewBook, {      
+      Reviews: arrayUnion(reviewText)
+    });
+  }
+
+  async ngOnInit() {
     this.bookid = this.activatedRoute.snapshot.paramMap.get('id');
-    // console.log(this.bookid);
     fetch(`https://www.googleapis.com/books/v1/volumes/${this.bookid}?key=${this.key}`)
     .then(response => response.json())
     .then(result => {
           this.books[0] = result.volumeInfo
           this.searchTerm = result.volumeInfo.authors
-          if (this.books[0].imageLinks.medium)
+          // if (this.books[0].imageLinks.medium)
     fetch(`https://www.googleapis.com/books/v1/volumes?q=${this.searchTerm}&key=${this.key}`)
     .then(response => response.json())
     .then(result => {
@@ -91,6 +101,9 @@ export class BookReviewComponent implements OnInit {
         }
       }
     })
-  }) 
+  })
+  const docRef = doc(this.db, "reviews", this.bookid);
+  const docSnap = await getDoc(docRef);
+  this.Reviews = docSnap.data()['Reviews'];
   }
 }
