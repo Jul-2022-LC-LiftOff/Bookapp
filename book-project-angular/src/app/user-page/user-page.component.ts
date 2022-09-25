@@ -35,6 +35,8 @@ export class UserPageComponent implements OnInit {
   userImage: string
   userEmail: string
   userVerified: boolean
+  userCreationDate: string
+  userLastSignIn: string
   constructor() {
     this.username = currentUser.name
     this.userImage = currentUser.image
@@ -55,6 +57,8 @@ onAuthStateChanged(auth, (user) => {
     this.userImage = this.auth.currentUser.photoURL;
     this.userEmail = this.auth.currentUser.email
     this.userVerified = this.auth.currentUser.emailVerified
+    this.userCreationDate = user.metadata.creationTime
+    this.userLastSignIn = user.metadata.lastSignInTime
     
   } else {
     // User is signed out
