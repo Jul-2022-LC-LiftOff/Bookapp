@@ -28,7 +28,7 @@ export class UserPageComponent implements OnInit {
   auth = getAuth();
   db = getFirestore(this.app);
   user = this.auth.currentUser;
-  userId; //= this.user.uid;
+  userId//= this.user.uid;
   
 
   username: string
@@ -38,22 +38,29 @@ export class UserPageComponent implements OnInit {
   userCreationDate: string
   userLastSignIn: string
   userPhone: string
+  reviews: string
+  library
+  reviewTitles : Array<string> = [];
+  
+  books: Array<Book> = [];
+
   constructor() {
     this.username = currentUser.name
     this.userImage = currentUser.image
-    
+    //this.userId = this.user.uid
   }
 
 
-  async ngOnInit(): Promise<void> {
 
+  async ngOnInit(): Promise<void> {
+  
 const auth = getAuth();
-onAuthStateChanged(auth, (user) => {
+onAuthStateChanged(auth, async (user) => {
   if (user) {
     //if the user is signed in
     // https://firebase.google.com/docs/reference/js/firebase.User
     const uid = user.uid;
-      
+    this.userId= user.uid;
     this.username = user.displayName;
     this.userImage = this.auth.currentUser.photoURL;
     this.userEmail = this.auth.currentUser.email
@@ -62,13 +69,36 @@ onAuthStateChanged(auth, (user) => {
     this.userLastSignIn = user.metadata.lastSignInTime
     this.userPhone = user.phoneNumber
     
+    const docRef = doc(this.db,"users",uid)
+   const docSnap = await getDoc(docRef);
+   this.reviews = docSnap.data()['My_Reviews'];
+  //  console.log(this.reviews[0]['review'])
+  //  console.log(this.reviews[0]['bookid'])
+
+   for(let i of this.reviews){
+    //console.log(i)
+    let idk = i['bookid']
+    //console.log(idk)
+    this.reviewTitles.push(idk)
+   }
+   console.log(this.reviewTitles)
+   for (let i = 0; i < this.reviewTitles.length; i++) {
+     fetch(`https://www.googleapis.com/books/v1/volumes/${this.reviewTitles[i]}?key=${this.key}`)
+     .then(response => response.json())
+     .then(result => {
+           this.books[i] = result.volumeInfo;
+           this.books[i].id = result.id;
+     })  
+   }
+   //console.log(this.books[0].title)
     
   } else {
     // User is signed out
     console.log("user is signed out")
   }
    });
-  
+   
+   
   }
 }
 
