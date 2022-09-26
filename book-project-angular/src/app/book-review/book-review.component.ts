@@ -65,12 +65,12 @@ export class BookReviewComponent implements OnInit {
 
   async addReview(text) {
     let reviewText = text.review;
+    this.user = this.auth.currentUser;
     let reviewObj = {
       bookid: this.bookid,
       review: reviewText
     };
-    let reviewWithQuotes = '"' + text.review + '"' + ` by: ` + this.username;
-    this.user = this.auth.currentUser;
+    let reviewWithQuotes = '"' + text.review + '"' + ` by: ` + this.user.displayName;
     const addReview = doc(this.db, "users", this.user.uid);
     const reviewReal = doc(this.db, "reviews", this.bookid);
     const docSnap = await getDoc(reviewReal);
