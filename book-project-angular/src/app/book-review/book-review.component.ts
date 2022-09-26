@@ -54,6 +54,7 @@ export class BookReviewComponent implements OnInit {
   Reviews;
   htmlToAdd;
   username;
+  uid;
 
   async writeUserData() {
     const addBook = doc(this.db, "users", this.userId);
@@ -68,10 +69,9 @@ export class BookReviewComponent implements OnInit {
       bookid: this.bookid,
       review: reviewText
     };
-    console.log(reviewObj);
     let reviewWithQuotes = '"' + text.review + '"' + ` by: ` + this.username;
-    let IdofBook = this.bookid;
-    const addReview = doc(this.db, "users", this.userId,);
+    this.user = this.auth.currentUser;
+    const addReview = doc(this.db, "users", this.user.uid);
     const reviewReal = doc(this.db, "reviews", this.bookid);
     const docSnap = await getDoc(reviewReal);
     if (docSnap.exists()) {
@@ -89,7 +89,7 @@ export class BookReviewComponent implements OnInit {
     window.location.reload();
   }
 
-  async ngOnInit() {
+  async ngOnInit(): Promise<void>{
     this.bookid = this.activatedRoute.snapshot.paramMap.get('id');
     fetch(`https://www.googleapis.com/books/v1/volumes/${this.bookid}?key=${this.key}`)
     .then(response => response.json())
@@ -126,11 +126,13 @@ export class BookReviewComponent implements OnInit {
   const docSnap = await getDoc(docRef);
   this.Reviews = docSnap.data()['Reviews'];
   const auth = getAuth();
-  onAuthStateChanged(auth, (user) => {
+  this.user = this.auth.currentUser;
+  onAuthStateChanged(auth, async (user) => {
     if (user) {
     //if the user is signed in
     // https://firebase.google.com/docs/reference/js/firebase.User
-    this.userId = this.user.uid;
+    const uid = user.uid;
+    this.userId= user.uid;
     this.username = user.displayName;
     } else {
     // User is signed out
